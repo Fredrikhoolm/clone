@@ -2,7 +2,6 @@
 ![Master Branchen](https://github.com/kristiania/pgr203eksamen-hkonn/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
 -----------------------------
-Eksamenspunkter:
 Filformat: Github classroom-lenke og ZIP-fil fra Github med Java-kildekode og README.md-fil
 
 Innlevering:
@@ -89,4 +88,5 @@ Innlevering:
 	• [ ] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1 
 	• [ ] Annet
 	
+
 -------------------------
