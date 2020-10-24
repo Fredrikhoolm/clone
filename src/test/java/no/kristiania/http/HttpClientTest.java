@@ -7,6 +7,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpClientTest {
+
     @Test
     void shouldGetFailureResponseCode() throws IOException {
         HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?status=401");
