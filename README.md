@@ -50,4 +50,4 @@
 -------------------------
 
 Temporary UML:
-![UML][PGR203Eksamen_UML.png]
+![UML][https://github.com/kristiania/pgr203eksamen-hkonn/blob/dev/PGR203Eksamen_UML.png]
