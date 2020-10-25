@@ -20,7 +20,7 @@ public class MemberDao {
         this.dataSource = dataSource;
     }
 
-    public void insert(Member member) throws SQLException {
+    public void insert(Member member) throws SQLException, UnsupportedEncodingException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO members (member_name, lastname, email) values (?, ?, ?)",
@@ -28,7 +28,7 @@ public class MemberDao {
             )){
                 statement.setString(1, member.getFirstName());
                 statement.setString(2, member.getLastName());
-                statement.setString(3,URLDecoder.decode(String.valueOf(member.getEmail()), StandardCharsets.UTF_8.toString());
+                statement.setString(3,URLDecoder.decode(String.valueOf(member.getEmail()), StandardCharsets.UTF_8.toString()));
                 statement.executeUpdate();
 
                 //member.getEmail()

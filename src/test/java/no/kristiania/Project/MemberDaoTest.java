@@ -26,7 +26,7 @@ public class MemberDaoTest {
     }
 
     @Test
-    void shouldListInsertedMembers() throws SQLException {
+    void shouldListInsertedMembers() throws SQLException, UnsupportedEncodingException {
         Member member1 = exampleMember();
         Member member2 = exampleMember();
         memberDao.insert(member1);
@@ -37,7 +37,7 @@ public class MemberDaoTest {
     }
 
     @Test
-    void shouldRetrieveAllMemberProperties() throws SQLException {
+    void shouldRetrieveAllMemberProperties() throws SQLException, UnsupportedEncodingException {
         memberDao.insert(exampleMember());
         memberDao.insert(exampleMember());
         Member member = exampleMember();
