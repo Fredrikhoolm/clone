@@ -48,3 +48,6 @@
 
 
 -------------------------
+
+Temporary UML:
+![UML][PGR203Eksamen_UML.png]
