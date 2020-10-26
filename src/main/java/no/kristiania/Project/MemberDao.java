@@ -85,10 +85,10 @@ public class MemberDao {
     public static void main(String[] args) throws SQLException, UnsupportedEncodingException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setUrl("jdbc:postgresql://localhost:5432/members");
-        dataSource.setUser("memberusere");
+        dataSource.setUser("projectadmin");
 
         //passordet er lett men dette er kun for testing
-        dataSource.setPassword("membersu");
+        dataSource.setPassword(",qe3(HEme4Y-uy)#");
 
         MemberDao memberDao = new MemberDao(dataSource);
         Scanner scanner = new Scanner(System.in);
