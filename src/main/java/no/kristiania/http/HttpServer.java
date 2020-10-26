@@ -38,6 +38,9 @@ public class HttpServer {
             }
         }).start();
     }
+    public int getPort() {
+        return serverSocket.getLocalPort();
+    }
 
     private void handleRequest(Socket clientSocket) throws IOException, SQLException {
         HttpMessage request = new HttpMessage(clientSocket);
@@ -53,7 +56,12 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
         if (requestMethod.equals("POST")) {
-            QueryString requestParameter = new QueryString(request.getBody());
+            if(requestPath.equals("/newProject")){
+                handlePostMembers(clientSocket, request);
+            }else{
+                getController(requestPath).handle(request, clientSocket);
+            }
+           /* QueryString requestParameter = new QueryString(request.getBody());
 
             Member member = new Member();
             URLDecoder.decode(String.valueOf(member.getEmail()), StandardCharsets.UTF_8.toString());
@@ -67,16 +75,43 @@ public class HttpServer {
                     "Connection: close\r\n" +
                     "\r\n" +
                     body;
-            clientSocket.getOutputStream().write(response.getBytes());
+            clientSocket.getOutputStream().write(response.getBytes());*/
         }else{
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
             } else if (requestPath.equals("/members")) {
                 handleGetMembers(clientSocket);
             }else {
-                handleFileRequest(clientSocket, requestPath);
+                HttpControllerface controller = controllers.get(requestPath);
+                if (controller != null) {
+                    controller.handle(request, clientSocket);
+                } else {
+                    handleFileRequest(clientSocket, requestPath);
+                }
             }
         }
+    }
+
+    private HttpControllerface getController(String requestPath) {
+        return controllers.get(requestPath);
+    }
+
+    private void handlePostMembers(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
+        QueryString requestParameter = new QueryString(request.getBody());
+
+        Member member = new Member();
+        URLDecoder.decode(String.valueOf(member.getEmail()), StandardCharsets.UTF_8.toString());
+        member.setFirstName(requestParameter.getParameter("first_name"));
+        member.setLastName(requestParameter.getParameter("last_name"));
+        member.setEmail(requestParameter.getParameter("email"));
+        memberDao.insert(member);
+        String respone = "Okay";
+        String response = "HTTP/1.1 200 OK\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
+                "Connection: close\r\n" +
+                "\r\n" +
+                body;
+        clientSocket.getOutputStream().write(response.getBytes());
     }
     private void handleFileRequest(Socket clientSocket, String requestPath) throws IOException {
 

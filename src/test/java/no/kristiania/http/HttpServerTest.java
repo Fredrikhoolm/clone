@@ -104,7 +104,6 @@ class HttpServerTest {
         memberDao.insert(member);
         HttpClient client = new HttpClient("localhost", 10009, "/members");
         assertThat(client.getResponseBody()).contains("<li>" + "Christian Lie, chris@egms.no</li>");
-
     }
 
 }
