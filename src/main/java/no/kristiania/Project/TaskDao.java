@@ -49,6 +49,10 @@ public class TaskDao extends AbstractDao {
 
     @Override
     protected Task mapRow(ResultSet rs) throws SQLException {
-        return null;
+        Task task = new Task();
+        task.setId(rs.getInt("id"));
+        task.setName(rs.getString("name"));
+        task.setStatus(rs.getString("status"));
+        return task;
     }
 }

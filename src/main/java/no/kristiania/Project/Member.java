@@ -1,17 +1,26 @@
 package no.kristiania.Project;
 
 public class Member {
-    private long id;
+    private Integer id;
+    private Integer taskId;
     private String firstName;
     private String lastName;
     private String email;
 
-    public long getId() {
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    public Integer getId() {
 
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
 
         this.id = id;
     }
