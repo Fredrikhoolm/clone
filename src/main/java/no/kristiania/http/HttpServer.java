@@ -1,7 +1,11 @@
 package no.kristiania.http;
 
+//import databases
 import no.kristiania.Project.Member;
 import no.kristiania.Project.MemberDao;
+import no.kristiania.Project.Task;
+import no.kristiania.Project.TaskDao;
+
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
@@ -15,17 +19,26 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 // NOTE: RED FIELDS(ERRORS) ARE LINKED TO A DATABASE, BUT WE DO NOT HAVE A DATABASE YET!
 
 public class HttpServer {
 
-    private MemberDao memberDao;
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
+    private Map<String, HttpController> controllers;
+
+    private MemberDao memberDao;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
         memberDao = new MemberDao(dataSource);
+        TaskDao taskDao = new TaskDao(dataSource);
+        controllers = Map.of(
+                "/api/newProject", new HttpPostController(taskDao),
+                "/projects", new HttpGetController(taskDao)
+        );
+
         ServerSocket serverSocket = new ServerSocket(port);
 
         new Thread(() -> {
@@ -38,9 +51,9 @@ public class HttpServer {
             }
         }).start();
     }
-    public int getPort() {
+    /*public int getPort() {
         return serverSocket.getLocalPort();
-    }
+    }*/
 
     private void handleRequest(Socket clientSocket) throws IOException, SQLException {
         HttpMessage request = new HttpMessage(clientSocket);
@@ -56,7 +69,7 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
         if (requestMethod.equals("POST")) {
-            if(requestPath.equals("/newProject")){
+            if(requestPath.equals("/api/newWorker")){
                 handlePostMembers(clientSocket, request);
             }else{
                 getController(requestPath).handle(request, clientSocket);
@@ -82,7 +95,7 @@ public class HttpServer {
             } else if (requestPath.equals("/members")) {
                 handleGetMembers(clientSocket);
             }else {
-                HttpControllerface controller = controllers.get(requestPath);
+                HttpController controller = controllers.get(requestPath);
                 if (controller != null) {
                     controller.handle(request, clientSocket);
                 } else {
@@ -92,7 +105,8 @@ public class HttpServer {
         }
     }
 
-    private HttpControllerface getController(String requestPath) {
+    private  HttpController getController(String requestPath) {
+
         return controllers.get(requestPath);
     }
 

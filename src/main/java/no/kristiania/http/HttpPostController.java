@@ -1,10 +1,7 @@
 package no.kristiania.http;
-/*
-import no.kristiania.database.ProductCategory;
-import no.kristiania.database.ProductCategoryDao;
-*/
 
-import no.kristiania.Project.Member;
+import no.kristiania.Project.Task;
+import no.kristiania.Project.TaskDao;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -13,28 +10,28 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class HttpPostController implements HttpController {
-   private projectCategoryDao projectCategoryDao;
+   private TaskDao taskDao;
 
-   public HttpPostController(projectCategoryDao projectCategoryDao){
-       this.projectCategoryDao = projectCategoryDao;
+   public HttpPostController(TaskDao taskDao){
+
+       this.taskDao = taskDao;
    }
 
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
 
-        Member member = new Member();
-        URLDecoder.decode(String.valueOf(member.getEmail()), StandardCharsets.UTF_8.toString());
-        member.setFirstName(requestParameter.getParameter("first_name"));
-        member.setLastName(requestParameter.getParameter("last_name"));
-        member.setEmail(requestParameter.getParameter("email"));
-        memberDao.insert(member);
-        String respone = "Okay";
+        Task tasks = new Task();
+        tasks.setName(requestParameter.getParameter("categoryName"));
+        taskDao.insert(tasks);
+
+        String body = "Okay";
         String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + body.length() + "\r\n" +
                 "Connection: close\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
                 "\r\n" +
                 body;
+        // Write the response back to the client
         clientSocket.getOutputStream().write(response.getBytes());
     }
 }
