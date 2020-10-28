@@ -6,22 +6,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Add project member</h1>
-<form method="GET" action="/api/tasks">
-    <label>Member name: <select id="projectMembers" name="projectMember" /></label>
-    <!-- TODO: Filter på status -->
-    <button>List</button>
-</form>
 <div>
-    <a href=".">Return to front page</a>
+    <form method="post" action="/api/newWorker">
+        <p>Product name: <input name="workerName"/></p>
+        <!--<p>Display color: <input name="color" type="color"/></p>-->
+        <p><button>Submit</button></p>
+    </form>
 </div>
 </body>
-<script>
-    fetch("/api/projectMembers")
-        .then(function(response) {
-            return response.text();
-        }).then(function(text) {
-        document.getElementById("projectMembers").innerHTML = text;
-    });
-</script>
 </html>

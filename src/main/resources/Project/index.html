@@ -2,23 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>KristianiaProject</title>
+    <title>PGR203Eksamen</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1>Project view</h1>
 <div id="projectMembers"></div>
-<div>
-    <a href="newWorker.html">Add new project member</a>
-    <a href="listTasks.html">Vis oppgaver</a>
-</div>
+<ul>
+    <li><a href="newProject.html">Add new project </a></li>
+    <li><a href="projects.html">List of projects</a></li>
+    <li><a href="newWorker.html">Add new project member</a></li>
+    <li><a href="workers.html">List of project members</a></li>
+</ul>
 </body>
-<script>
+
+<!--<script>
     fetch("/api/projectMembers")
         .then(function(response) {
             return response.text();
         }).then(function(text) {
         document.getElementById("projectMembers").innerHTML = text;
     });
-</script>
+</script>-->
 </html>

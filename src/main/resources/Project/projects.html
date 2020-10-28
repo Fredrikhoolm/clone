@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Projects</title>
+</head>
+<body>
+
+<h1>Current projects</h1>
+
+<div id="projects "></div>
+</body>
+<script>
+    fetch("/api/products").then(response => response.text()).then(html => {
+        document.getElementById("projects").innerHTML = html;
+    });
+</script>
+</html>
