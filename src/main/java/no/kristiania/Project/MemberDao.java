@@ -13,6 +13,7 @@ public class MemberDao extends AbstractDao<Member> {
     public MemberDao(DataSource dataSource) {
         super(dataSource);
     }
+    //TODO: prøve å abstrahere insert og list metodene hvis det går?
 
     public void insert(Member member) throws SQLException, UnsupportedEncodingException {
         try(Connection connection = dataSource.getConnection()) {

@@ -10,7 +10,7 @@ public class TaskDao extends AbstractDao {
     public TaskDao(DataSource dataSource) {
         super(dataSource);
     }
-
+    //TODO: prøve å abstrahere insert og list metodene hvis det går?
     public void insert(Task project) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
