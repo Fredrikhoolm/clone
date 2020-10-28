@@ -29,7 +29,7 @@ public class TaskDao extends AbstractDao {
         }
     }
 
-    public Task retrieve(Integer id) throws SQLException {
+    public Object retrieve(Integer id) throws SQLException {
         return retrieve(id, "SELECT * FROM task WHERE id = ?");
     }
 
