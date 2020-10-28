@@ -17,7 +17,7 @@ public class MemberDao extends AbstractDao<Member> {
     public void insert(Member member) throws SQLException, UnsupportedEncodingException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO members (member_name, lastname, email) values (?, ?, ?)",
+                    "INSERT INTO project (member_name, lastname, email) values (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )){
                 statement.setString(1, member.getFirstName());
@@ -45,13 +45,13 @@ public class MemberDao extends AbstractDao<Member> {
         }
     }
 
-    public Member retrieve(Integer id) throws SQLException, UnsupportedEncodingException {
-        return retrieve(id, "SELECT * FROM members WHERE id = ?");
+    public Member retrieve(Integer id) throws SQLException {
+        return retrieve(id, "SELECT * FROM project WHERE id = ?");
     }
 
-    public List<Member> list() throws SQLException, UnsupportedEncodingException {
+    public List<Member> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM members")) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM project")) {
                 try(ResultSet rs = statement.executeQuery()) {
                     List<Member> members = new ArrayList<>();
                     while(rs.next()) {
@@ -68,7 +68,7 @@ public class MemberDao extends AbstractDao<Member> {
     protected Member mapRow(ResultSet rs) throws SQLException {
         Member member = new Member();
         member.setId(rs.getInt("id"));
-        member.setTaskId(rs.getInt("taskId"));
+        member.setTaskId(rs.getInt("task_id"));
         member.setFirstName(rs.getString("member_firsname"));
         member.setLastName(rs.getString("member_lastname"));
         member.setEmail(rs.getString("email"));

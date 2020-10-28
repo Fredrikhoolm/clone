@@ -14,7 +14,7 @@ public class TaskDao extends AbstractDao {
     public void insert(Task project) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO project (name) values (?)",
+                    "INSERT INTO task (name) values (?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, project.getName());
