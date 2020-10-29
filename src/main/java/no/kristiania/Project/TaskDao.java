@@ -8,6 +8,7 @@ import java.util.List;
 public class TaskDao extends AbstractDao {
 
     public TaskDao(DataSource dataSource) {
+
         super(dataSource);
     }
     //TODO: prøve å abstrahere insert og list metodene hvis det går?

@@ -12,6 +12,8 @@ import java.util.Random;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class taskDaoTest {
+    private TaskDao taskDao;
+
     @BeforeEach
     void setUp() {
         JdbcDataSource dataSource = new JdbcDataSource();
@@ -21,28 +23,32 @@ public class taskDaoTest {
     }
 
     @Test
-    void shouldListInsertedMembers() throws SQLException, UnsupportedEncodingException {
-        TaskDao task1 = exampleTask();
-        TaskDao task2 = exampleTask();
+    void shouldListInsertedProjects() throws SQLException {
+        Task task1 = exampleTask();
+        Task task2 = exampleTask();
         taskDao.insert(task1);
         taskDao.insert(task2);
-        assertThat(taskdDao())
-                .extracting(Member::getFirstName)
-                .contains(member1.getFirstName(), member2.getFirstName());
+        assertThat(taskDao.list())
+                .extracting(Task::getName)
+                .contains(task1.getName(), task2.getName());
     }
 
+
     @Test
-    void shouldRetrieveAllMemberProperties() throws SQLException, UnsupportedEncodingException {
-        memberDao.insert(exampleMember());
-        memberDao.insert(exampleMember());
-        Member member = exampleMember();
-        memberDao.insert(member);
-        assertThat(member).hasNoNullFieldsOrProperties();
-        assertThat(memberDao.retrieve(member.getId()))
+    void shouldRetrieveAllTaskProperties() throws SQLException, UnsupportedEncodingException {
+        taskDao.insert(exampleTask());
+        taskDao.insert(exampleTask());
+        Task projectTask = exampleTask();
+        taskDao.insert(projectTask);
+        assertThat(taskDao.retrieve(projectTask.getId()))
                 .usingRecursiveComparison()
-                .isEqualTo(member);
+                .isEqualTo(projectTask);
     }
-    private Member exampleMember() throws UnsupportedEncodingException {
+    private Task exampleTask() {
+        return null;
+    }
+
+    private Member exampleMem() throws UnsupportedEncodingException {
         Member member = new Member();
         member.setFirstName(exampleMemberName());
         member.setLastName("Richard");
@@ -54,5 +60,7 @@ public class taskDaoTest {
         Random random = new Random();
         return options[random.nextInt(options.length)];
     }
+
+
 }
 
