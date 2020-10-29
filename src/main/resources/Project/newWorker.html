@@ -6,12 +6,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div>
-    <form method="post" action="/api/newWorker">
-        <p>Product name: <input name="workerName"/></p>
-        <!--<p>Display color: <input name="color" type="color"/></p>-->
-        <p><button>Submit</button></p>
-    </form>
+<div id="center">
+        <h1>Add project member</h1>
+
+        <form method="POST" action="/members">
+            <div><label>Member name: <input type="text" name="first_name" /></label></div>
+            <div><label>Member last name: <input type="text" name="last_name" /></label></div>
+            <div><label>Email address: <input type="email" name="email" /></label></div>
+            <button>Add</button>
+        </form>
+
+        <div>
+            <a href="index.html">Return to front page</a>
+        </div>
 </div>
 </body>
 </html>

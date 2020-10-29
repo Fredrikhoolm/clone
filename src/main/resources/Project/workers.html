@@ -9,11 +9,17 @@
 
 <h1>Project Members</h1>
 
-<div id="projectmembers"></div>
+<div id="members"></div>
+<div>
+    <a href="index.html">Return to front page</a>
+</div>
 </body>
 <script>
-    fetch("/api/projectmembers").then(response => response.text()).then(html => {
-        document.getElementById("projectmembers").innerHTML = html;
+    fetch("/members")
+        .then(function(response) {
+            return response.text();
+        }).then(function(text) {
+        document.getElementById("members").innerHTML = text;
     });
 </script>
 </html>
