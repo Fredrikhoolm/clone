@@ -70,7 +70,7 @@ public class HttpServer {
 
         if (requestMethod.equals("POST")) {
             if(requestPath.equals("/api/newWorker")){
-                handlePostMembers(clientSocket, request);
+                handlePostMembers(request, clientSocket);
             }else{
                 getController(requestPath).handle(request, clientSocket);
             }
@@ -119,7 +119,7 @@ public class HttpServer {
         member.setLastName(requestParameter.getParameter("last_name"));
         member.setEmail(requestParameter.getParameter("email"));
         memberDao.insert(member);
-        String respone = "Okay";
+        String body = "Okay";
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.length() + "\r\n" +
                 "Connection: close\r\n" +

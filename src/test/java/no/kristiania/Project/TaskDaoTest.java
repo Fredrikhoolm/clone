@@ -11,7 +11,8 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class taskDaoTest {
+public class TaskDaoTest {
+
     private TaskDao taskDao;
 
     @BeforeEach
@@ -21,46 +22,5 @@ public class taskDaoTest {
         Flyway.configure().dataSource(dataSource).load().migrate();
         taskDao = new TaskDao(dataSource);
     }
-
-    @Test
-    void shouldListInsertedProjects() throws SQLException {
-        Task task1 = exampleTask();
-        Task task2 = exampleTask();
-        taskDao.insert(task1);
-        taskDao.insert(task2);
-        assertThat(taskDao.list())
-                .extracting(Task::getName)
-                .contains(task1.getName(), task2.getName());
-    }
-
-
-    @Test
-    void shouldRetrieveAllTaskProperties() throws SQLException, UnsupportedEncodingException {
-        taskDao.insert(exampleTask());
-        taskDao.insert(exampleTask());
-        Task projectTask = exampleTask();
-        taskDao.insert(projectTask);
-        assertThat(taskDao.retrieve(projectTask.getId()))
-                .usingRecursiveComparison()
-                .isEqualTo(projectTask);
-    }
-    private Task exampleTask() {
-        return null;
-    }
-
-    private Member exampleMem() throws UnsupportedEncodingException {
-        Member member = new Member();
-        member.setFirstName(exampleMemberName());
-        member.setLastName("Richard");
-        member.setEmail("Chris@gmail.com");
-        return member;
-    }
-    private String exampleMemberName(){
-        String[] options = {"Ole", "Hadron", "Chris", "Gabriel", "Jesus"};
-        Random random = new Random();
-        return options[random.nextInt(options.length)];
-    }
-
-
 }
 
