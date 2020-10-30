@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+</head>
+<body>
+
+<h1>Current tasks</h1>
+
+<div id="tasks"></div>
+</body>
+<script>
+    fetch("/newTasks").then(response => response.text()).then(html => {
+        document.getElementById("tasks").innerHTML = html;
+    });
+</script>
+</html>
