@@ -105,5 +105,14 @@ class HttpServerTest {
         HttpClient client = new HttpClient("localhost", 10009, "/members");
         assertThat(client.getResponseBody()).contains("<li>" + "Christian Lie, chris@egms.no</li>");
     }
+    @Test
+    void shouldPostNewProject() throws IOException, SQLException {
+        HttpServer server = new HttpServer(10010, dataSource);
+        HttpClient postClient = new HttpClient("localhost", 10010, "/newTask", "POST", "taskName = Javascript");
+        assertEquals(200, postClient.getStatusCode());
+
+        HttpClient getClient = new HttpClient("localhost", 10010, "/proejcts");
+        assertThat(getClient.getResponseBody()).contains("<li>Javascript</li>");
+    }
 
 }

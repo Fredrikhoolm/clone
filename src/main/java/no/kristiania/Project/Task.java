@@ -1,16 +1,16 @@
 package no.kristiania.Project;
 
 public class Task {
-    private Integer id;
+    private Long id;
     private String name;
     private String status;
 
-    public Integer getId() {
+    public Long getId() {
 
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
 
         this.id = id;
     }
