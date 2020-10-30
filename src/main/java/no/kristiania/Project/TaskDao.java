@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
 public class TaskDao {
     private DataSource dataSource;
 
@@ -67,22 +67,12 @@ public class TaskDao {
             }
         }
     }
-    //mapRowToProject
-    //@Override
-    /*protected Task mapRowToProject(ResultSet rs) throws SQLException {
-        Task task = new Task();
-        task.setId(rs.getInt("id"));
-        task.setName(rs.getString("name"));
-        task.setStatus(rs.getString("status"));
-        return task;
-    }*/
-
-    /*public void insert(Task project1) {
-    }*/
 }
 
+*/
 
-/*public class TaskDao extends AbstractDao {
+
+public class TaskDao extends AbstractDao<Task> {
 
     public TaskDao(DataSource dataSource) {
 
@@ -107,7 +97,7 @@ public class TaskDao {
         }
     }
 
-    public Object retrieve(Integer id) throws SQLException {
+    public Task retrieve(Integer id) throws SQLException {
         return retrieve(id, "SELECT * FROM task WHERE id = ?");
     }
 
@@ -133,4 +123,4 @@ public class TaskDao {
         task.setStatus(rs.getString("status"));
         return task;
     }
-}*/
+}
