@@ -98,7 +98,7 @@ public class TaskDao extends AbstractDao<Task> {
     }
 
     public Task retrieve(Integer id) throws SQLException {
-        return retrieve(id, "SELECT * FROM task WHERE id = ?");
+        return retrieve(id, "SELECT * FROM tasks WHERE id = ?");
     }
 
     public List<Task> list() throws SQLException {

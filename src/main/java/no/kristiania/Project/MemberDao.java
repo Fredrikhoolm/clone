@@ -70,7 +70,7 @@ public class MemberDao extends AbstractDao<Member> {
         Member member = new Member();
         member.setId(rs.getInt("id"));
         member.setTaskId(rs.getInt("task_id"));
-        member.setFirstName(rs.getString("member_firsname"));
+        member.setFirstName(rs.getString("member_firstname"));
         member.setLastName(rs.getString("member_lastname"));
         member.setEmail(rs.getString("email"));
         return member;
