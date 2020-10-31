@@ -40,7 +40,7 @@ public class MemberDao extends AbstractDao<Member> {
             try(PreparedStatement statement = connection.prepareStatement(
                     "UPDATE members SET taskId = ? WHERE id = ?")) {
                 statement.setInt(1, member.getTaskId());
-                statement.setInt(1, member.getId());
+                statement.setInt(2, member.getId());
                 statement.executeUpdate();
             }
         }

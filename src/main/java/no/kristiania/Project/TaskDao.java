@@ -82,7 +82,7 @@ public class TaskDao extends AbstractDao<Task> {
     public void insert(Task project) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO tasks (name) values (?)",
+                    "INSERT INTO tasks (name, status) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, project.getName());
@@ -103,7 +103,7 @@ public class TaskDao extends AbstractDao<Task> {
 
     public List<Task> list() throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
-            try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM task")) {
+            try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM tasks")) {
                 try(ResultSet rs = statement.executeQuery()) {
                     List<Task> tasks = new ArrayList<>();
                     while(rs.next()) {
