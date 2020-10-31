@@ -79,19 +79,19 @@ public class TaskDao extends AbstractDao<Task> {
         super(dataSource);
     }
     //TODO: prøve å abstrahere insert og list metodene hvis det går?
-    public void insert(Task project) throws SQLException {
+    public void insert(Task task) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO tasks (name, status) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
-                statement.setString(1, project.getName());
-                statement.setString(2, project.getStatus());
+                statement.setString(1, task.getName());
+                statement.setString(2, task.getStatus());
                 statement.executeUpdate();
 
                 try(ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     generatedKeys.next();
-                    project.setId(generatedKeys.getInt("id"));
+                    task.setId(generatedKeys.getInt("id"));
                 }
             }
         }
