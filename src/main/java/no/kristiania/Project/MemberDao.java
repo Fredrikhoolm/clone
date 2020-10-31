@@ -18,7 +18,7 @@ public class MemberDao extends AbstractDao<Member> {
     public void insert(Member member) throws SQLException, UnsupportedEncodingException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO project (member_name, lastname, email) values (?, ?, ?)",
+                    "INSERT INTO project (member_firstname, member_lastname, email) values (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )){
                 statement.setString(1, member.getFirstName());
