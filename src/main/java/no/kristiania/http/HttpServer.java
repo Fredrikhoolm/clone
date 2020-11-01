@@ -28,15 +28,16 @@ public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
     private Map<String, HttpController> controllers;
-
+    private int port;
     private MemberDao memberDao;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
+        this.port = port;
         memberDao = new MemberDao(dataSource);
         TaskDao taskDao = new TaskDao(dataSource);
         controllers = Map.of(
-                "/api/newProject", new HttpPostController(taskDao),
-                "/projects", new HttpGetController(taskDao)
+                "/api/newProject", new ProjectTaskPostController(taskDao),
+                "/projects", new ProjectTaskGetController(taskDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
@@ -51,9 +52,9 @@ public class HttpServer {
             }
         }).start();
     }
-    /*public int getPort() {
-        return serverSocket.getLocalPort();
-    }*/
+    public int getPort() {
+        return port;
+    }
 
     private void handleRequest(Socket clientSocket) throws IOException, SQLException {
         HttpMessage request = new HttpMessage(clientSocket);

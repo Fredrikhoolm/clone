@@ -3,37 +3,35 @@ package no.kristiania.http;
 import no.kristiania.Project.Task;
 import no.kristiania.Project.TaskDao;
 
-import no.kristiania.Project.Member;
-import no.kristiania.Project.TaskDao;
-
 import java.io.IOException;
 import java.net.Socket;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
-public class HttpGetController implements HttpController {
-    private TaskDao taskDao;
+public class ProjectTaskPostController implements HttpController {
+   private TaskDao taskDao;
 
-    public HttpGetController(TaskDao taskDao){
+   public ProjectTaskPostController(TaskDao taskDao){
 
-        this.taskDao = taskDao;
-    }
+       this.taskDao = taskDao;
+   }
+
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
-        String body = "<ul>";
-        for (Task tasks : taskDao.list()) {
-            body += "<li>" + tasks.getName() + "</li>";
-        }
+        QueryString requestParameter = new QueryString(request.getBody());
 
-        body += "</ul>";
+        Task tasks = new Task();
+        tasks.setName(requestParameter.getParameter("categoryName"));
+        taskDao.insert(tasks);
+
+        String body = "Okay";
         String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + body.length() + "\r\n" +
-                "Content-Type: text/html\r\n" +
                 "Connection: close\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
                 "\r\n" +
                 body;
-
         // Write the response back to the client
         clientSocket.getOutputStream().write(response.getBytes());
-
     }
 }
