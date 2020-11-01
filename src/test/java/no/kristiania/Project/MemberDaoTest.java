@@ -50,10 +50,17 @@ public class MemberDaoTest {
     private Member exampleMember() throws UnsupportedEncodingException {
         Member member = new Member();
         member.setFirstName(exampleMemberName());
+        member.setTaskId(exampleTaskId());
         member.setLastName("Richard");
         member.setEmail("Chris@gmail.com");
         return member;
     }
+
+    private Integer exampleTaskId() {
+        Integer[] taskId = {1,2,3 };
+        return taskId[random.nextInt(taskId.length)];
+    }
+
     private String exampleMemberName(){
         String[] options = {"Ole", "Hadron", "Chris", "Gabriel", "Jesus"};
         Random random = new Random();

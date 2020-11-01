@@ -8,10 +8,12 @@ public class Member {
     private String email;
 
     public Integer getTaskId() {
+
         return taskId;
     }
 
     public void setTaskId(Integer taskId) {
+
         this.taskId = taskId;
     }
 

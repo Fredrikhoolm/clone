@@ -49,7 +49,13 @@ public class TaskDaoTest {
     private Task exampleTask() {
         Task task = new Task();
         task.setName(exampleProjectName());
+        task.setStatus(exampleStatus());
         return task;
+    }
+
+    private String exampleStatus() {
+        String[] options = {"DONE", "ALMOST DONE", "NOT STARTED"};
+        return options[random.nextInt(options.length)];
     }
 
     private String exampleProjectName() {
