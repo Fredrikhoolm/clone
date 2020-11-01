@@ -36,8 +36,8 @@ public class HttpServer {
         memberDao = new MemberDao(dataSource);
         TaskDao taskDao = new TaskDao(dataSource);
         controllers = Map.of(
-                "/api/newProject", new ProjectTaskPostController(taskDao),
-                "/projects", new ProjectTaskGetController(taskDao)
+                "/newTask", new ProjectTaskPostController(taskDao),
+                "/newTasks", new ProjectTaskGetController(taskDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
@@ -45,7 +45,7 @@ public class HttpServer {
         new Thread(() -> {
             while (true) {
                 try(Socket clientSocket = serverSocket.accept()) {
-                    handleRequest(clientSocket);
+                     handleRequest(clientSocket);
                 } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
@@ -53,6 +53,7 @@ public class HttpServer {
         }).start();
     }
     public int getPort() {
+
         return port;
     }
 
@@ -70,32 +71,17 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
         if (requestMethod.equals("POST")) {
-            if(requestPath.equals("/api/newWorker")){
-                handlePostMembers(request, clientSocket);
-            }else{
+            if (requestPath.equals("/members")) {
+                handlePostMembers(clientSocket, request, body);
+            } else {
                 getController(requestPath).handle(request, clientSocket);
             }
-           /* QueryString requestParameter = new QueryString(request.getBody());
-
-            Member member = new Member();
-            URLDecoder.decode(String.valueOf(member.getEmail()), StandardCharsets.UTF_8.toString());
-            member.setFirstName(requestParameter.getParameter("first_name"));
-            member.setLastName(requestParameter.getParameter("last_name"));
-            member.setEmail(requestParameter.getParameter("email"));
-            memberDao.insert(member);
-            String respone = "Okay";
-            String response = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Length: " + body.length() + "\r\n" +
-                    "Connection: close\r\n" +
-                    "\r\n" +
-                    body;
-            clientSocket.getOutputStream().write(response.getBytes());*/
-        }else{
+        } else {
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
             } else if (requestPath.equals("/members")) {
                 handleGetMembers(clientSocket);
-            }else {
+            } else {
                 HttpController controller = controllers.get(requestPath);
                 if (controller != null) {
                     controller.handle(request, clientSocket);
@@ -111,7 +97,7 @@ public class HttpServer {
         return controllers.get(requestPath);
     }
 
-    private void handlePostMembers(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
+    private void handlePostMembers(Socket clientSocket, HttpMessage request, String body) throws SQLException, IOException {
         QueryString requestParameter = new QueryString(request.getBody());
 
         Member member = new Member();
@@ -120,7 +106,7 @@ public class HttpServer {
         member.setLastName(requestParameter.getParameter("last_name"));
         member.setEmail(requestParameter.getParameter("email"));
         memberDao.insert(member);
-        String body = "Okay";
+        String respone = "Okay";
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.length() + "\r\n" +
                 "Connection: close\r\n" +
