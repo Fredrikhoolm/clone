@@ -1,5 +1,6 @@
 package no.kristiania.http;
 
+
 import no.kristiania.Project.TaskDao;
 import no.kristiania.Project.Task;
 
@@ -16,7 +17,8 @@ public class ProjectTaskOptionsController implements HttpController{
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         //String bod = "Okay";
-        String body = "<a href=\"index.html\">Return to front page</a>";
+        String body = getBody();
+        String boy = "<a href=\"index.html\">Return to front page</a>";
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Connection: close\r\n" +
                 "Content-Length: " + body.length() + "\r\n" +
@@ -25,11 +27,11 @@ public class ProjectTaskOptionsController implements HttpController{
         // Write the response back to the client
         clientSocket.getOutputStream().write(response.getBytes());
     }
-    /*public String getBody() throws SQLException {
+    public String getBody() throws SQLException {
         String body = "";
-        for (ProductCategory category : categoryDao.list()) {
-            body += "<option value=" + category.getId() + ">" + category.getName() + "</option>";
+        for (Task task : taskDao.list()) {
+            body += "<option value=" + task.getId() + ">" + task. getName() + "</option";
         }
         return body;
-    }*/
+    }
 }

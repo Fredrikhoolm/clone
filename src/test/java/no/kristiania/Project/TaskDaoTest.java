@@ -1,5 +1,6 @@
 package no.kristiania.Project;
 
+import no.kristiania.http.ProjectTaskOptionsController;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,6 +45,14 @@ public class TaskDaoTest {
         assertThat(taskDao.retrieve(task.getId()))
                 .usingRecursiveComparison()
                 .isEqualTo(task);
+    }
+    @Test
+    void shouldReturnTasksAsOptions() throws UnsupportedEncodingException, SQLException {
+        ProjectTaskOptionsController controller = new ProjectTaskOptionsController(taskDao);
+        Task task = exampleTask();
+        taskDao.insert(task);
+        assertThat(controller.getBody())
+                .contains("<option value=" + task.getId() + ">" + task. getName() + "</option");
     }
 
     private Task exampleTask() {
