@@ -38,7 +38,7 @@ public class MemberDao extends AbstractDao<Member> {
     public void update(Member member) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE members SET taskId = ? WHERE id = ?")) {
+                    "UPDATE members SET task_id = ? WHERE id = ?")) {
                 statement.setInt(1, member.getTaskId());
                 statement.setInt(2, member.getId());
                 statement.executeUpdate();
@@ -69,7 +69,7 @@ public class MemberDao extends AbstractDao<Member> {
     protected Member mapRow(ResultSet rs) throws SQLException {
         Member member = new Member();
         member.setId(rs.getInt("id"));
-        member.setTaskId(rs.getInt("task_id"));
+        member.setTaskId((Integer) rs.getObject("task_id"));
         member.setFirstName(rs.getString("member_firstname"));
         member.setLastName(rs.getString("member_lastname"));
         member.setEmail(rs.getString("email"));

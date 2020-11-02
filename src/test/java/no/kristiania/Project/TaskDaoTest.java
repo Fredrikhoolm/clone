@@ -1,6 +1,6 @@
 package no.kristiania.Project;
 
-import no.kristiania.http.ProjectTaskOptionsController;
+import no.kristiania.controllers.ProjectTaskOptionsController;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TaskDaoTest {
 
     private TaskDao taskDao;
-    private Random random = new Random();
+    private static Random random = new Random();
 
     @BeforeEach
     void setUp() {
@@ -55,19 +55,21 @@ public class TaskDaoTest {
                 .contains("<option value=" + task.getId() + ">" + task. getName() + "</option");
     }
 
-    private Task exampleTask() {
+    //public static task --?
+
+    public static Task exampleTask() {
         Task task = new Task();
         task.setName(exampleProjectName());
         task.setStatus(exampleStatus());
         return task;
     }
 
-    private String exampleProjectName() {
+    private static String exampleProjectName() {
         String[] options = {"HTML", "CSS", "Javascript", "JAVA"};
         return options[random.nextInt(options.length)];
     }
 
-    private String exampleStatus() {
+    private static String exampleStatus() {
         String[] option = {"DONE", "ALMOST DONE", "NOT STARTED"};
         return option[random.nextInt(option.length)];
     }

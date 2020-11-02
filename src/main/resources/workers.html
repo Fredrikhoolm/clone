@@ -15,11 +15,8 @@
 </div>
 </body>
 <script>
-    fetch("/members")
-        .then(function(response) {
-            return response.text();
-        }).then(function(text) {
-        document.getElementById("members").innerHTML = text;
+    fetch("/members").then(response => response.text()).then(html => {
+        document.getElementById("members").innerHTML = html;
     });
 </script>
 </html>

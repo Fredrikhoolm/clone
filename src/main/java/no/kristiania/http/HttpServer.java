@@ -6,6 +6,7 @@ import no.kristiania.Project.MemberDao;
 import no.kristiania.Project.Task;
 import no.kristiania.Project.TaskDao;
 
+import no.kristiania.controllers.*;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
@@ -41,7 +42,8 @@ public class HttpServer {
                 "/newTask", new ProjectTaskPostController(taskDao),
                 "/newTasks", new ProjectTaskGetController(taskDao),
                 "/taskOptions", new ProjectTaskOptionsController(taskDao),
-                "/memberOptions", new MemberOptionsController(memberDao)
+                "/memberOptions", new MemberOptionsController(memberDao),
+                "/updateTask", new UpdateProjectController(memberDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);

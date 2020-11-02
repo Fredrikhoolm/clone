@@ -1,12 +1,15 @@
 package no.kristiania.Project;
 
-import no.kristiania.http.MemberOptionsController;
+import no.kristiania.http.HttpMessage;
+import no.kristiania.controllers.MemberOptionsController;
+import no.kristiania.controllers.UpdateProjectController;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Random;
@@ -17,6 +20,7 @@ public class MemberDaoTest {
 
     private MemberDao memberDao;
     private static Random random = new Random();
+    private TaskDao taskDao;
 
     @BeforeEach
     void setUp() {
@@ -24,6 +28,7 @@ public class MemberDaoTest {
         dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         Flyway.configure().dataSource(dataSource).load().migrate();
         memberDao = new MemberDao(dataSource);
+        taskDao = new TaskDao(dataSource);
     }
 
     @Test
@@ -56,6 +61,27 @@ public class MemberDaoTest {
         memberDao.insert(member);
         assertThat(controller.getBody())
                 .contains("<option value=" + member.getId() + ">" + member. getFirstName() + "</option");
+    }
+
+    @Test
+    void shouldUpdateExistingProjectwithMember() throws IOException, SQLException{
+        UpdateProjectController controller = new  UpdateProjectController(memberDao);
+
+        Member member = exampleMember();
+        memberDao.insert(member);
+
+        Task task = TaskDaoTest.exampleTask();
+        taskDao.insert(task);
+
+        String body = "memberId=" + member.getId() + "task_id=" + task.getId();
+
+        HttpMessage response = controller.handle(new HttpMessage(body));
+        assertThat(memberDao.retrieve(member.getId()).getTaskId())
+                .isEqualTo(task.getId());
+        assertThat(response.getStartLine())
+                .isEqualTo("HTTP/1.1 302 Redirect");
+        assertThat(response.getHeaders().get("Location"))
+                .isEqualTo("http://localhost:8080/index.html");
     }
 
     public static Member exampleMember() throws UnsupportedEncodingException {
