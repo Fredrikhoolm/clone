@@ -21,6 +21,14 @@ public class HttpMessage {
         }
     }
 
+    public HttpMessage(String body) {
+        startLine = "HTTP/1.1 200 OK";
+        headers = new HashMap<>();
+        headers.put("Content-Length", String.valueOf(body.length()));
+        headers.put("Connection", "close");
+        this.body = body;
+    }
+
     public static String readLine(Socket socket) throws IOException {
         StringBuilder line = new StringBuilder();
         int c;

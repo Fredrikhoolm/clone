@@ -21,10 +21,10 @@
 </body>
 <script>
     fetch("/memberOptions").then(response => response.text()).then(html => {
-        document.getElementById("memberId").innerHTML = text;
+        document.getElementById("memberId").innerHTML = html;
     });
     fetch("/taskOptions").then(response => response.text()).then(html => {
-        document.getElementById("taskId").innerHTML = text;
+        document.getElementById("taskId").innerHTML = html;
     });
 </script>
 </html>

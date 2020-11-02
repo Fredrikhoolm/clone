@@ -1,5 +1,6 @@
 package no.kristiania.Project;
 
+import no.kristiania.http.MemberOptionsController;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MemberDaoTest {
 
     private MemberDao memberDao;
-    private Random random = new Random();
+    private static Random random = new Random();
 
     @BeforeEach
     void setUp() {
@@ -47,7 +48,17 @@ public class MemberDaoTest {
                 .usingRecursiveComparison()
                 .isEqualTo(member);
     }
-    private Member exampleMember() throws UnsupportedEncodingException {
+
+    @Test
+    void shouldReturnMembersAsOptions() throws UnsupportedEncodingException, SQLException {
+        MemberOptionsController controller = new MemberOptionsController(memberDao);
+        Member member = MemberDaoTest.exampleMember();
+        memberDao.insert(member);
+        assertThat(controller.getBody())
+                .contains("<option value=" + member.getId() + ">" + member. getFirstName() + "</option");
+    }
+
+    public static Member exampleMember() throws UnsupportedEncodingException {
         Member member = new Member();
         member.setFirstName(exampleMemberName());
         member.setTaskId(exampleTaskId());
@@ -56,12 +67,12 @@ public class MemberDaoTest {
         return member;
     }
 
-    private Integer exampleTaskId() {
+    private static Integer exampleTaskId() {
         Integer[] taskId = {1,2,3 };
         return taskId[random.nextInt(taskId.length)];
     }
 
-    private String exampleMemberName(){
+    private static String exampleMemberName(){
         String[] options = {"Ole", "Hadron", "Chris", "Gabriel", "Jesus"};
         Random random = new Random();
         return options[random.nextInt(options.length)];

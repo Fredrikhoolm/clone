@@ -39,7 +39,9 @@ public class HttpServer {
         TaskDao taskDao = new TaskDao(dataSource);
         controllers = Map.of(
                 "/newTask", new ProjectTaskPostController(taskDao),
-                "/newTasks", new ProjectTaskGetController(taskDao)
+                "/newTasks", new ProjectTaskGetController(taskDao),
+                "/taskOptions", new ProjectTaskOptionsController(taskDao),
+                "/memberOptions", new MemberOptionsController(memberDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
