@@ -53,14 +53,14 @@ public class TaskDaoTest {
         return task;
     }
 
-    private String exampleStatus() {
-        String[] option = {"DONE", "ALMOST DONE", "NOT STARTED"};
-        return option[random.nextInt(option.length)];
-    }
-
     private String exampleProjectName() {
         String[] options = {"HTML", "CSS", "Javascript", "JAVA"};
         return options[random.nextInt(options.length)];
+    }
+
+    private String exampleStatus() {
+        String[] option = {"DONE", "ALMOST DONE", "NOT STARTED"};
+        return option[random.nextInt(option.length)];
     }
 }
 

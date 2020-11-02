@@ -108,13 +108,12 @@ class HttpServerTest {
     @Test
     void shouldPostNewProject() throws IOException, SQLException {
         HttpServer server = new HttpServer(10010, dataSource);
-        String requestBody = "taskName= JAVA";
-        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newTask", "POST", requestBody);
+       // String requestBody = "taskName= JAVA";
+        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newTask", "POST", "taskName= JAVA");
         assertEquals(200, postClient.getStatusCode());
 
         HttpClient getClient = new HttpClient("localhost", server.getPort(), "/newTasks");
         assertThat(getClient.getResponseBody()).contains("<li>JAVA</li>");
-
     }
 
 }

@@ -9,6 +9,10 @@
 <h1>Current tasks</h1>
 
 <div id="tasks"></div>
+
+<div>
+    <a href="index.html">Return to front page</a>
+</div>
 </body>
 <script>
     fetch("/newTasks").then(response => response.text()).then(html => {

@@ -42,7 +42,7 @@ public class MemberDaoTest {
         memberDao.insert(exampleMember());
         Member member = exampleMember();
         memberDao.insert(member);
-        assertThat(member).hasNoNullFieldsOrPropertiesExcept("taskId");
+        assertThat(member).hasNoNullFieldsOrPropertiesExcept();
         assertThat(memberDao.retrieve(member.getId()))
                 .usingRecursiveComparison()
                 .isEqualTo(member);
