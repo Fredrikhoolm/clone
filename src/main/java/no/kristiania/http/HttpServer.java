@@ -32,6 +32,7 @@ public class HttpServer {
     private MemberDao memberDao;
 
 
+
     public HttpServer(int port, DataSource dataSource) throws IOException {
         this.port = port;
         memberDao = new MemberDao(dataSource);
@@ -42,6 +43,7 @@ public class HttpServer {
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
+        logger.info("Server started on port {}", serverSocket.getLocalPort());
 
         new Thread(() -> {
             while (true) {

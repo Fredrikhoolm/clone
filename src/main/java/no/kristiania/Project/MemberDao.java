@@ -69,7 +69,7 @@ public class MemberDao extends AbstractDao<Member> {
     protected Member mapRow(ResultSet rs) throws SQLException {
         Member member = new Member();
         member.setId(rs.getInt("id"));
-        //member.setTaskId(rs.getInt("task_id"));
+        member.setTaskId(rs.getInt("task_id"));
         member.setFirstName(rs.getString("member_firstname"));
         member.setLastName(rs.getString("member_lastname"));
         member.setEmail(rs.getString("email"));
