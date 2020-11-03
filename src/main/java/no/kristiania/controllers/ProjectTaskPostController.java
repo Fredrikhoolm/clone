@@ -23,6 +23,7 @@ public class ProjectTaskPostController implements HttpController {
 
         Task tasks = new Task();
         tasks.setName(requestParameter.getParameter("taskName"));
+        tasks.setStatus(requestParameter.getParameter("taskStatus"));
         taskDao.insert(tasks);
 
         //String bod = "Okay";
