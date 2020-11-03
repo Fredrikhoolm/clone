@@ -2,27 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Project</title>
+    <title>Edit Task</title>
 </head>
 <body>
-    <h1>Edit Project</h1>
+<div>
+    <form method="post" action="/editTask">
 
+        <p>Task name: <select name="taskId" id="taskId" ></select></p>
+        <p>Task status:
+            <select name="taskStatus">
+                <option value="Not started">Not started</option>
+                <option value="In progress">In progress</option>
+                <option value="Done">Done</option>
+            </select>
+        </p>
+        <p><button>Submit</button></p>
+    </form>
     <div>
-        <form method="post" action="/updateTask">
-            <p>Member name: <select name="memberId" id="memberId" ></select></p>
-            <p>New task: <select name="taskId" id="taskId" ></select></p>
-            <p><button>Submit</button></p>
-        </form>
-        <div>
-            <a href="index.html">Return to front page</a>
-        </div>
+        <a href="index.html">Return to front page</a>
     </div>
-
+</div>
 </body>
 <script>
-    fetch("/memberOptions").then(response => response.text()).then(html => {
-        document.getElementById("memberId").innerHTML = html;
-    });
     fetch("/taskOptions").then(response => response.text()).then(html => {
         document.getElementById("taskId").innerHTML = html;
     });
