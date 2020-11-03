@@ -32,8 +32,6 @@ public class HttpServer {
     private int port;
     private MemberDao memberDao;
 
-
-
     public HttpServer(int port, DataSource dataSource) throws IOException {
         this.port = port;
         memberDao = new MemberDao(dataSource);
@@ -217,7 +215,8 @@ public class HttpServer {
     }
 
 
-    public List<Member> getMembers() throws SQLException, UnsupportedEncodingException{
+    public List<Member> getMembers() throws SQLException{
         return memberDao.list();
     }
+
 }

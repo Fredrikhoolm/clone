@@ -20,14 +20,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class HttpServerTest {
 
     private JdbcDataSource dataSource;
+   // private HttpServer server;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         dataSource = new JdbcDataSource();
         dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
 
         Flyway.configure().dataSource(dataSource).load().migrate();
-
+        //server = new HttpServer(0, dataSource);
     }
 
     @Test
@@ -110,7 +111,7 @@ class HttpServerTest {
     void shouldPostNewProject() throws IOException, SQLException {
         HttpServer server = new HttpServer(10010, dataSource);
        // String requestBody = "taskName= JAVA";
-        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newTask", "POST", "taskName= JAVA");
+        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newTask", "POST", "taskName=JAVA");
         assertEquals(200, postClient.getStatusCode());
 
         HttpClient getClient = new HttpClient("localhost", server.getPort(), "/newTasks");

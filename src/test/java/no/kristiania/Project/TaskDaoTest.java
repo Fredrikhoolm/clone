@@ -47,12 +47,12 @@ public class TaskDaoTest {
                 .isEqualTo(task);
     }
     @Test
-    void shouldReturnTasksAsOptions() throws UnsupportedEncodingException, SQLException {
+    void shouldReturnTasksAsOptions() throws SQLException {
         ProjectTaskOptionsController controller = new ProjectTaskOptionsController(taskDao);
         Task task = exampleTask();
         taskDao.insert(task);
         assertThat(controller.getBody())
-                .contains("<option value=" + task.getId() + ">" + task. getName() + "</option");
+                .contains("<option value=" + task.getId() + ">" + task.getName() + "</option");
     }
 
     //public static task --?

@@ -3,8 +3,6 @@ package no.kristiania.controllers;
 import no.kristiania.Project.Task;
 import no.kristiania.Project.TaskDao;
 
-import no.kristiania.Project.Member;
-import no.kristiania.Project.TaskDao;
 import no.kristiania.http.HttpMessage;
 
 import java.io.IOException;
@@ -21,8 +19,9 @@ public class ProjectTaskGetController implements HttpController {
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
-        for (Task tasks : taskDao.list()) {
-            body += "<li>" + tasks.getName() + "</li>";
+        for (Task task : taskDao.list()) {
+            String name = task.getName();
+            body += "<li>" + name + "</li>";
         }
 
         body += "</ul>";
@@ -33,7 +32,6 @@ public class ProjectTaskGetController implements HttpController {
                 "\r\n" +
                 body;
 
-        // Write the response back to the client
         clientSocket.getOutputStream().write(response.getBytes());
 
     }
