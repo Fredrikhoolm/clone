@@ -48,7 +48,7 @@ public class MemberDaoTest {
         memberDao.insert(exampleMember());
         Member member = exampleMember();
         memberDao.insert(member);
-        assertThat(member).hasNoNullFieldsOrPropertiesExcept();
+        assertThat(member).hasNoNullFieldsOrPropertiesExcept("taskId");
         assertThat(memberDao.retrieve(member.getId()))
                 .usingRecursiveComparison()
                 .isEqualTo(member);
@@ -60,7 +60,7 @@ public class MemberDaoTest {
         Member member = MemberDaoTest.exampleMember();
         memberDao.insert(member);
         assertThat(controller.getBody())
-                .contains("<option value=" + member.getId() + ">" + member. getFirstName() + "</option");
+                .contains("<option value=" + member.getId() + ">" + member. getFirstName() + "</option>");
     }
 
     @Test
@@ -87,16 +87,16 @@ public class MemberDaoTest {
     public static Member exampleMember() throws UnsupportedEncodingException {
         Member member = new Member();
         member.setFirstName(exampleMemberName());
-        member.setTaskId(exampleTaskId());
+        //member.setTaskId(exampleTaskId());
         member.setLastName("Richard");
         member.setEmail("Chris@gmail.com");
         return member;
     }
 
-    private static Integer exampleTaskId() {
+   /* private static Integer exampleTaskId() {
         Integer[] taskId = {1,2,3 };
         return taskId[random.nextInt(taskId.length)];
-    }
+    }*/
 
     private static String exampleMemberName(){
         String[] options = {"Ole", "Hadron", "Chris", "Gabriel", "Jesus"};

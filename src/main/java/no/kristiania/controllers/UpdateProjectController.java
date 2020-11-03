@@ -14,6 +14,7 @@ public class UpdateProjectController implements HttpController {
     private final MemberDao memberDao;
 
     public UpdateProjectController(MemberDao memberDao) {
+
         this.memberDao = memberDao;
     }
 
@@ -26,7 +27,7 @@ public class UpdateProjectController implements HttpController {
         QueryString requestParameter = new QueryString(request.getBody());
 
         Integer memberId = Integer.valueOf(requestParameter.getParameter("Id"));
-        Integer taskId = Integer.valueOf(requestParameter.getParameter("task_id"));
+        Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
         Member member = memberDao.retrieve(memberId);
         member.setTaskId(taskId);
 

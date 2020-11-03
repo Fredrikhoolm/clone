@@ -25,7 +25,7 @@ public class MemberOptionsController implements HttpController {
     public String getBody() throws SQLException {
         String body = "";
         for (Member member : memberDao.list()) {
-            body += "<option value=" + member.getId() + ">" + member.getFirstName() + "</option";
+            body += "<option value=" + member.getId() + ">" + member.getFirstName() + "</option>";
         }
 
         return body;

@@ -7,16 +7,6 @@ public class Member {
     private String lastName;
     private String email;
 
-    public Integer getId() {
-
-        return id;
-    }
-
-    public void setId(Integer id) {
-
-        this.id = id;
-    }
-
     public String getFirstName() {
 
         return firstName;
@@ -36,6 +26,17 @@ public class Member {
 
         this.lastName = lastName;
     }
+
+    public Integer getId() {
+
+        return id;
+    }
+
+    public void setId(Integer id) {
+
+        this.id = id;
+    }
+
 
     public String getEmail() {
 
