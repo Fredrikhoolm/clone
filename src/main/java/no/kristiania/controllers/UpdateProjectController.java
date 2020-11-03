@@ -26,7 +26,7 @@ public class UpdateProjectController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
 
-        Integer memberId = Integer.valueOf(requestParameter.getParameter("Id"));
+        Integer memberId = Integer.valueOf(requestParameter.getParameter("memberId"));
         Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
         Member member = memberDao.retrieve(memberId);
         member.setTaskId(taskId);

@@ -73,7 +73,7 @@ public class MemberDaoTest {
         Task task = TaskDaoTest.exampleTask();
         taskDao.insert(task);
 
-        String body = "memberId=" + member.getId() + "task_id=" + task.getId();
+        String body = "memberId=" + member.getId() + "&taskId=" + task.getId();
 
         HttpMessage response = controller.handle(new HttpMessage(body));
         assertThat(memberDao.retrieve(member.getId()).getTaskId())

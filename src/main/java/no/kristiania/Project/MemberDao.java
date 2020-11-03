@@ -38,7 +38,7 @@ public class MemberDao extends AbstractDao<Member> {
     public void update(Member member) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE members SET task_id = ? WHERE id = ?")) {
+                    "UPDATE project SET task_id = ? WHERE id = ?")) {
                 statement.setInt(1, member.getTaskId());
                 statement.setInt(2, member.getId());
                 statement.executeUpdate();
