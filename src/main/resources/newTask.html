@@ -8,6 +8,13 @@
 <div>
     <form method="post" action="/newTask">
         <p>Task name: <input name="taskName"/></p>
+        <p>Task status:
+            <select id="taskStatus">
+                <option value="1">Not started</option>
+                <option value="2">In progress</option>
+                <option value="3">Done</option>
+            </select>
+        </p>
         <p><button>Submit</button></p>
     </form>
     <div>
