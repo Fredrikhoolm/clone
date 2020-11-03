@@ -21,3 +21,8 @@ a{
     padding: 10px;
     top-padding: 25%;
 }
+
+.list {
+    float: left;
+    width: 400px;
+}
