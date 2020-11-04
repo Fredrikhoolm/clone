@@ -60,7 +60,7 @@ public class MemberDaoTest {
         Member member = MemberDaoTest.exampleMember();
         memberDao.insert(member);
         assertThat(controller.getBody())
-                .contains("<option value=" + member.getId() + ">" + member. getFirstName() + "</option>");
+                .contains("<option value=" + member.getId() + ">" + member.getFirstName() + "</option>");
     }
 
     @Test
@@ -93,7 +93,7 @@ public class MemberDaoTest {
         return member;
     }
 
-   /* private static Integer exampleTaskId() {
+   /*private static Integer exampleTaskId() {
         Integer[] taskId = {1,2,3 };
         return taskId[random.nextInt(taskId.length)];
     }*/

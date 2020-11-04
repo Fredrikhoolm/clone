@@ -13,6 +13,7 @@ public class MemberOptionsController implements HttpController {
     private MemberDao memberDao;
 
     public MemberOptionsController(MemberDao memberDao) {
+
         this.memberDao = memberDao;
     }
 

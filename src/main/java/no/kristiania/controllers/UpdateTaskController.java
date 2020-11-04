@@ -3,6 +3,7 @@ package no.kristiania.controllers;
 import no.kristiania.Project.Member;
 import no.kristiania.Project.Task;
 import no.kristiania.Project.TaskDao;
+import no.kristiania.Project.MemberDao;
 import no.kristiania.http.HttpMessage;
 import no.kristiania.http.QueryString;
 
@@ -15,6 +16,7 @@ public class UpdateTaskController implements HttpController {
     private final TaskDao taskDao;
 
     public UpdateTaskController(TaskDao taskDao) {
+
         this.taskDao = taskDao;
     }
 
@@ -26,12 +28,10 @@ public class UpdateTaskController implements HttpController {
 
     public HttpMessage handle(HttpMessage request) throws SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
-
         Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
         String status = requestParameter.getParameter("taskStatus");
         Task task = taskDao.retrieve(taskId);
         task.setStatus(status);
-
         taskDao.update(task);
 
         HttpMessage redirect = new HttpMessage();

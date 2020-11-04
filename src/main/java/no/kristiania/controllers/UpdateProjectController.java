@@ -1,7 +1,9 @@
 package no.kristiania.controllers;
 
 import no.kristiania.Project.Member;
+import no.kristiania.Project.Task;
 import no.kristiania.Project.MemberDao;
+import no.kristiania.Project.TaskDao;
 import no.kristiania.controllers.HttpController;
 
 import no.kristiania.http.HttpMessage;
@@ -13,6 +15,7 @@ import java.sql.SQLException;
 
 public class UpdateProjectController implements HttpController {
     private final MemberDao memberDao;
+
 
     public UpdateProjectController(MemberDao memberDao) {
 
@@ -39,4 +42,5 @@ public class UpdateProjectController implements HttpController {
         redirect.getHeaders().put("Location", "http://localhost:8080/index.html");
         return redirect;
     }
+
 }
