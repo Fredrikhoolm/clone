@@ -26,7 +26,7 @@ public class TaskDaoTest {
     }
 
     @Test
-    void shouldListAllCategories() throws SQLException {
+    void shouldListAllStatus() throws SQLException {
         Task project1 = exampleTask();
         Task project2 = exampleTask();
         taskDao.insert(project1);
@@ -46,16 +46,16 @@ public class TaskDaoTest {
                 .usingRecursiveComparison()
                 .isEqualTo(task);
     }
+
+
     @Test
     void shouldReturnTasksAsOptions() throws SQLException {
         ProjectTaskOptionsController controller = new ProjectTaskOptionsController(taskDao);
         Task task = exampleTask();
         taskDao.insert(task);
         assertThat(controller.getBody())
-                .contains("<option value=" + task.getId() + ">" + task.getName() + "</option");
+                .contains("<option value=" + task.getId() + ">" + task.getName() + task.getStatus() + "</option");
     }
-
-    //public static task --?
 
     public static Task exampleTask() {
         Task task = new Task();
