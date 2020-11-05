@@ -14,7 +14,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class UpdateProjectController implements HttpController {
-    private final MemberDao memberDao;
+    private MemberDao memberDao;
 
 
     public UpdateProjectController(MemberDao memberDao) {
@@ -22,11 +22,13 @@ public class UpdateProjectController implements HttpController {
         this.memberDao = memberDao;
     }
 
+
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         HttpMessage response = handle(request);
         response.write(clientSocket);
     }
+
     public HttpMessage handle(HttpMessage request) throws SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
 
@@ -39,7 +41,7 @@ public class UpdateProjectController implements HttpController {
 
         HttpMessage redirect = new HttpMessage();
         redirect.setStartLine("HTTP/1.1 302 Redirect");
-        redirect.getHeaders().put("Location", "http://localhost:8080/index.html");
+        redirect.getHeaders().put("Location", "projectwithmembers.html");
         return redirect;
     }
 
