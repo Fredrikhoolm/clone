@@ -42,7 +42,8 @@ public class HttpServer {
                 "/taskOptions", new ProjectTaskOptionsController(taskDao),
                 "/memberOptions", new MemberOptionsController(memberDao),
                 "/updateTask", new UpdateProjectController(memberDao),
-                "/editTask", new UpdateTaskController(taskDao)
+                "/editTask", new UpdateTaskController(taskDao),
+                "/projectwithmembers", new showListedmembersController(memberDao, taskDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
