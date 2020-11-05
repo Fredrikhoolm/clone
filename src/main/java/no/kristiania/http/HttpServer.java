@@ -42,8 +42,7 @@ public class HttpServer {
                 "/taskOptions", new ProjectTaskOptionsController(taskDao),
                 "/memberOptions", new MemberOptionsController(memberDao),
                 "/updateTask", new UpdateProjectController(memberDao),
-                "/editTask", new UpdateTaskController(taskDao),
-                "/projectwithmembers", new showListedmembersController(memberDao, taskDao)
+                "/editTask", new UpdateTaskController(taskDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
@@ -87,7 +86,7 @@ public class HttpServer {
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
             } else if (requestPath.equals("/members")) {
-                handleGetMembers(clientSocket);
+                handleGetMembers(clientSocket, requestTarget, questionPos);
             } else {
                 HttpController controller = controllers.get(requestPath);
                 if (controller != null) {
@@ -153,7 +152,7 @@ public class HttpServer {
         }
 
     }
-    private void handleGetMembers (Socket clientSocket) throws IOException, SQLException {
+    private void handleGetMembers(Socket clientSocket, String requestTarget, int questionPos) throws IOException, SQLException {
         String body = "<ul>";
 
         for (Member member : memberDao.list()) {

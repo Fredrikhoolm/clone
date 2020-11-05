@@ -12,10 +12,18 @@
 <div>
     <a href="index.html">Return to front page</a>
 </div>
+
+<form>
+    <p>Filter by Tasks: <select id="taskId" name="taskId"></select> </p>
+    <button>Filter</button>
+</form>
 </body>
 <script>
-    fetch("/members").then(response => response.text()).then(html => {
+    fetch("/members" + location.search()).then(response => response.text()).then(html => {
         document.getElementById("members").innerHTML = html;
+    });
+    fetch("/taskOptions").then(response => response.text()).then(html => {
+        document.getElementById("taskId").innerHTML = html;
     });
 </script>
 </html>

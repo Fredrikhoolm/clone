@@ -41,7 +41,7 @@ public class UpdateProjectController implements HttpController {
 
         HttpMessage redirect = new HttpMessage();
         redirect.setStartLine("HTTP/1.1 302 Redirect");
-        redirect.getHeaders().put("Location", "projectwithmembers.html");
+        redirect.getHeaders().put("Location", "http://localhost:8080/index.html");
         return redirect;
     }
 

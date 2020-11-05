@@ -15,7 +15,6 @@
     <li><a href="newWorker.html">Add new member</a></li>
     <li><a href="workers.html">List of members</a></li>
     <li><a href="editTask.html">Edit task status</a></li>
-    <li><a href="projectwithmembers.html">Show Members in tasks</a></li>
 </ul>
 <h1>Members:</h1>
 <div id="members" class="list">
@@ -41,8 +40,5 @@
         document.getElementById("tasks").innerHTML = html;
     });
 
-    fetch("/projectwithmembers").then(response => response.text()).then(html => {
-        document.getElementById("membersInTasks").innerHTML = html;
-    });
 </script>
 </html>

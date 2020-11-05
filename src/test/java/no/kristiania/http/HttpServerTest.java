@@ -107,9 +107,11 @@ class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/members");
         assertThat(client.getResponseBody()).contains("<li>" + "Christian Lie, chris@egms.no</li>");
     }
+
+
     @Test
     void shouldPostNewProject() throws IOException, SQLException {
-        HttpServer server = new HttpServer(10010, dataSource);
+        HttpServer server = new HttpServer(10011, dataSource);
        // String requestBody = "taskName= JAVA";
         HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newTask", "POST", "taskName=JAVA&taskStatus=DONE");
         assertEquals(200, postClient.getStatusCode());
