@@ -25,6 +25,12 @@
 <div id="tasks" class="list">
 
 </div>
+<form>
+    <p>
+        Filter by Task status: <select id="taskStatus" name="taskStatus"></select>
+        <button>Filter</button>
+    </p>
+</form>
 
 <h1>Listed members in Project: </h1>
 <div id="membersInTasks" class="list">
@@ -38,6 +44,10 @@
 
     fetch("/newTasks").then(response => response.text()).then(html => {
         document.getElementById("tasks").innerHTML = html;
+    });
+
+    fetch("/taskOptions").then(response => response.text()).then(html => {
+        document.getElementById("taskStatus").innerHTML = html;
     });
 
 </script>
