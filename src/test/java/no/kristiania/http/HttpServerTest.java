@@ -118,10 +118,14 @@ class HttpServerTest {
         MemberDao memberDao = new MemberDao(dataSource);
         Member member = new Member();
         member.setFirstName("Christian");
+        member.setLastName("Lie");
+        member.setEmail("chris@egms.no");
         memberDao.insert(member);
 
         Member testStudent = new Member();
         testStudent.setFirstName("testStudent");
+        testStudent.setLastName("kristiania");
+        testStudent.setEmail("egms@kristiania.no");
         memberDao.insert(testStudent);
 
         TaskDao taskDao = new TaskDao(dataSource);
@@ -133,7 +137,7 @@ class HttpServerTest {
         memberDao.update(testStudent);
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/members?taskId=" + done.getId());
-        assertThat(client.getResponseBody()).contains("<li>" + "testStudent</li>").doesNotContain("<li>" + "Christian</li>");
+        assertThat(client.getResponseBody()).contains("<li>testStudent kristiania, egms@kristiania.no</li>");
     }
 
     @Test
