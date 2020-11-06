@@ -19,12 +19,13 @@ public class MemberDao extends AbstractDao<Member> {
     public void insert(Member member) throws SQLException, UnsupportedEncodingException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO project (member_firstname, member_lastname, email) values (?, ?, ?)",
+                    "INSERT INTO project (member_firstname, member_lastname, email, task_id) values (?, ?, ?,?)",
                     Statement.RETURN_GENERATED_KEYS
             )){
                 statement.setString(1, member.getFirstName());
                 statement.setString(2, member.getLastName());
                 statement.setString(3,URLDecoder.decode(String.valueOf(member.getEmail()), StandardCharsets.UTF_8.toString()));
+                statement.setObject(4, member.getTaskId());
                 statement.executeUpdate();
 
                 //member.getEmail()
@@ -63,16 +64,30 @@ public class MemberDao extends AbstractDao<Member> {
             }
         }
     }
+    public List<Member> queryProjectsByTaskId(Integer taskId) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM project WHERE task_id = ?")) {
+                statement.setInt(1, taskId);
+                try(ResultSet rs = statement.executeQuery()) {
+                    List<Member> members = new ArrayList<>();
+                    while(rs.next()) {
+                        members.add(mapRow(rs));
+                    }
+                    return members;
+                }
+            }
+        }
+    }
 
 
     @Override
     protected Member mapRow(ResultSet rs) throws SQLException {
         Member member = new Member();
         member.setId(rs.getInt("id"));
-        member.setTaskId((Integer) rs.getObject("task_id"));
         member.setFirstName(rs.getString("member_firstname"));
         member.setLastName(rs.getString("member_lastname"));
         member.setEmail(rs.getString("email"));
+        //member.setTaskId((Integer) rs.getObject("task_id"));
         return member;
     }
 

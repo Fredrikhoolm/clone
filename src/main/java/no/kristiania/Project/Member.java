@@ -2,10 +2,10 @@ package no.kristiania.Project;
 
 public class Member {
     private Integer id;
-    private Integer taskId;
     private String firstName;
     private String lastName;
     private String email;
+    private Integer taskId;
 
     public String getFirstName() {
 

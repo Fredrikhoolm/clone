@@ -153,14 +153,18 @@ public class HttpServer {
 
     }
     private void handleGetMembers(Socket clientSocket, String requestTarget, int questionPos) throws IOException, SQLException {
+        Integer taskId = null;
+        if (questionPos != -1) {
+            taskId = Integer.valueOf(new QueryString(requestTarget.substring(questionPos+1))
+                    .getParameter("taskId"));
+        }
+        List<Member> members = taskId == null ? memberDao.list() : memberDao.queryProjectsByTaskId(taskId);
+
         String body = "<ul>";
-
-        for (Member member : memberDao.list()) {
-
+        for (Member member : members) {
             String first_name = member.getFirstName();
             String last_Name = member.getLastName();
             String email = member.getEmail();
-
             body += "<li>" + first_name + " " + last_Name + ", " + email + "</li>";
         }
 

@@ -21,16 +21,31 @@ public class MemberDaoTest {
     private MemberDao memberDao;
     private static Random random = new Random();
     private TaskDao taskDao;
+    private Task defaultTask;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         Flyway.configure().dataSource(dataSource).load().migrate();
         memberDao = new MemberDao(dataSource);
         taskDao = new TaskDao(dataSource);
+
+        defaultTask = TaskDaoTest.exampleTask();
+        taskDao.insert(defaultTask);
     }
 
+    @Test
+    void shouldRetrieveAllMemberProperties() throws SQLException, UnsupportedEncodingException {
+        memberDao.insert(exampleMember());
+        memberDao.insert(exampleMember());
+        Member member = exampleMember();
+        memberDao.insert(member);
+        assertThat(member).hasNoNullFieldsOrProperties();
+        assertThat(memberDao.retrieve(member.getId()))
+                .usingRecursiveComparison()
+                .isEqualTo(member);
+    }
     @Test
     void shouldListInsertedMembers() throws SQLException, UnsupportedEncodingException {
         Member member1 = exampleMember();
@@ -43,21 +58,29 @@ public class MemberDaoTest {
     }
 
     @Test
-    void shouldRetrieveAllMemberProperties() throws SQLException, UnsupportedEncodingException {
-        memberDao.insert(exampleMember());
-        memberDao.insert(exampleMember());
-        Member member = exampleMember();
-        memberDao.insert(member);
-        assertThat(member).hasNoNullFieldsOrPropertiesExcept("taskId");
-        assertThat(memberDao.retrieve(member.getId()))
-                .usingRecursiveComparison()
-                .isEqualTo(member);
+    void shouldqueryProjectsByTask() throws SQLException, UnsupportedEncodingException {
+        Task task = TaskDaoTest.exampleTask();
+        taskDao.insert(task);
+        Task otherTask = TaskDaoTest.exampleTask();
+        taskDao.insert(otherTask);
+
+        Member matchingMember = exampleMember();
+        matchingMember.setTaskId(task.getId());
+        memberDao.insert(matchingMember);
+        Member nonMatchingMember = exampleMember();
+        nonMatchingMember.setTaskId(otherTask.getId());
+        memberDao.insert(nonMatchingMember);
+
+        assertThat(memberDao.queryProjectsByTaskId(task.getId()))
+                .extracting(Member::getId)
+                .contains(matchingMember.getId())
+                .doesNotContain(nonMatchingMember.getId());
     }
 
     @Test
     void shouldReturnMembersAsOptions() throws UnsupportedEncodingException, SQLException {
         MemberOptionsController controller = new MemberOptionsController(memberDao);
-        Member member = MemberDaoTest.exampleMember();
+        Member member = exampleMember();
         memberDao.insert(member);
         assertThat(controller.getBody())
                 .contains("<option value=" + member.getId() + ">" + member.getFirstName() + "</option>");
@@ -84,12 +107,14 @@ public class MemberDaoTest {
                 .isEqualTo("http://localhost:8080/index.html");
     }
 
-    public static Member exampleMember() throws UnsupportedEncodingException {
+
+    public Member exampleMember() {
         Member member = new Member();
         member.setFirstName(exampleMemberName());
         //member.setTaskId(exampleTaskId());
         member.setLastName("Richard");
         member.setEmail("Chris@gmail.com");
+        member.setTaskId(defaultTask.getId());
         return member;
     }
 

@@ -1,7 +1,12 @@
 package no.kristiania.http;
 
+//Import from database project folder
+
 import no.kristiania.Project.Member;
+import no.kristiania.Project.Task;
 import no.kristiania.Project.MemberDao;
+import no.kristiania.Project.TaskDao;
+
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
@@ -107,7 +112,29 @@ class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/members");
         assertThat(client.getResponseBody()).contains("<li>" + "Christian Lie, chris@egms.no</li>");
     }
+    @Test
+    void shouldFilterMembersByTask() throws IOException, SQLException{
+        HttpServer server = new HttpServer(10010, dataSource);
+        MemberDao memberDao = new MemberDao(dataSource);
+        Member member = new Member();
+        member.setFirstName("Christian");
+        memberDao.insert(member);
 
+        Member testStudent = new Member();
+        testStudent.setFirstName("testStudent");
+        memberDao.insert(testStudent);
+
+        TaskDao taskDao = new TaskDao(dataSource);
+        Task done = new Task();
+        done.setName("done");
+        taskDao.insert(done);
+
+        testStudent.setTaskId(done.getId());
+        memberDao.update(testStudent);
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/members?taskId=" + done.getId());
+        assertThat(client.getResponseBody()).contains("<li>" + "testStudent</li>").doesNotContain("<li>" + "Christian</li>");
+    }
 
     @Test
     void shouldPostNewProject() throws IOException, SQLException {
