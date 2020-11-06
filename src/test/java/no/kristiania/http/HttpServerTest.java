@@ -147,7 +147,7 @@ class HttpServerTest {
         HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newTask", "POST", "taskName=JAVA&taskStatus=DONE");
         assertEquals(200, postClient.getStatusCode());
         HttpClient getClient = new HttpClient("localhost", server.getPort(), "/newTasks");
-        assertThat(getClient.getResponseBody()).contains("<li>" + "JAVA" + "</li>" +  "<dl>" + "Status:" + "DONE</dl>");
+        assertThat(getClient.getResponseBody()).contains("<li>" + "JAVA" + "</li>" +  "<dl>" + "Status: " + "DONE</dl>");
     }
 
 }

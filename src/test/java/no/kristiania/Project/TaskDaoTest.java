@@ -54,7 +54,7 @@ public class TaskDaoTest {
         Task task = exampleTask();
         taskDao.insert(task);
         assertThat(controller.getBody())
-                .contains("<option value=" + task.getId() + ">" + task.getName() + task.getStatus() + "</option");
+                .contains("<option value=" + task.getId() + ">" + task.getName() + " " + task.getStatus() +  "</option>");
     }
 
     public static Task exampleTask() {

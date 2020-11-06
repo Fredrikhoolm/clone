@@ -25,7 +25,7 @@ public class ProjectTaskFilterController implements HttpController{
         String body = "<ul>";
         for (Task task : taskDao.filterByStatus(status)) {
             String name = task.getName();
-                body += "<li>" + name + "</li>" + "<dl>" + "Status:" + status + "</dl>";
+                body += "<li>" + name + "</li>" + "<dl>" + "Status: " + status + "</dl>";
 
         }
 

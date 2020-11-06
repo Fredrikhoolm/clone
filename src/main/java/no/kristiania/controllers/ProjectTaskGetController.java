@@ -22,7 +22,7 @@ public class ProjectTaskGetController implements HttpController {
         for (Task task : taskDao.list()) {
             String name = task.getName();
             String status = task.getStatus();
-            body += "<li>" + name + "</li>" +  "<dl>" + "Status:" + status + "</dl>";
+            body += "<li>" + name + "</li>" +  "<dl>" + "Status: " + status + "</dl>";
         }
 
         body += "</ul>";
