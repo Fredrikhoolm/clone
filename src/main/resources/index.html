@@ -46,7 +46,7 @@
         document.getElementById("tasks").innerHTML = html;
     });
 
-    fetch("/taskOptions").then(response => response.text()).then(html => {
+    fetch("/listStatus").then(response => response.text()).then(html => {
         document.getElementById("taskStatus").innerHTML = html;
     });
 

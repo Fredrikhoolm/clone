@@ -3,7 +3,6 @@ package no.kristiania.http;
 //import databases
 import no.kristiania.Project.Member;
 import no.kristiania.Project.MemberDao;
-import no.kristiania.Project.Task;
 import no.kristiania.Project.TaskDao;
 
 import no.kristiania.controllers.*;
@@ -42,7 +41,9 @@ public class HttpServer {
                 "/taskOptions", new ProjectTaskOptionsController(taskDao),
                 "/memberOptions", new MemberOptionsController(memberDao),
                 "/updateTask", new UpdateProjectController(memberDao),
-                "/editTask", new UpdateTaskController(taskDao)
+                "/editTask", new UpdateTaskController(taskDao),
+                "/listStatus", new ProjectTaskStatusController(taskDao),
+                "filterStatus", new ProjectTaskFilterController(taskDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
