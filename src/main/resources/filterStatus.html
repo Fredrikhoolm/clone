@@ -8,15 +8,15 @@
 
 <h1>Filter by Task status</h1>
 
+<h1>Members:</h1>
+<div id="members" class="list">
 
+
+</div>
 
 <h1>Tasks:</h1>
 <div id="tasks" class="list">
-    <h1>Members:</h1>
-    <div id="members" class="list">
 
-
-    </div>
 
 </div>
 <div>
@@ -35,7 +35,7 @@
         document.getElementById("members").innerHTML = html;
     });
 
-    fetch("/newTasks").then(response => response.text()).then(html => {
+    fetch("/newTasks" ).then(response => response.text()).then(html => {
         document.getElementById("tasks").innerHTML = html;
     });
 
