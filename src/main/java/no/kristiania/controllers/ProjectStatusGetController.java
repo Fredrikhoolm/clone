@@ -1,8 +1,8 @@
 package no.kristiania.controllers;
 
 import no.kristiania.Project.Status;
-import no.kristiania.Project.Task;
-import no.kristiania.Project.TaskDao;
+import no.kristiania.Project.StatusDao;
+
 
 import no.kristiania.http.HttpMessage;
 
@@ -11,17 +11,17 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class ProjectStatusGetController implements HttpController{
-    private Status;
+    private StatusDao statusDao;
 
-    public ProjectStatusGetController(TaskDao taskDao) {
-        this.taskDao = taskDao;
+    public ProjectStatusGetController(StatusDao statusDao) {
+        this.statusDao = statusDao;
     }
 
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
         for (Status status : statusDao.list()) {
-            String status = status.getName();
+            String Statu = status.getName();
             body += "<dl>" + "Status: " + status + "</dl>";
         }
 
