@@ -2,7 +2,6 @@ package no.kristiania.Project;
 
 public class Status {
     private Integer id;
-
     private String name;
 
     public Integer getId() {

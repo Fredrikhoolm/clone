@@ -31,7 +31,7 @@ public class UpdateTaskController implements HttpController {
         Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
         String status = requestParameter.getParameter("taskStatus");
         Task task = taskDao.retrieve(taskId);
-        task.setStatus(status);
+        //task.setStatus(status);
         taskDao.update(task);
 
         HttpMessage redirect = new HttpMessage();
