@@ -15,11 +15,11 @@ public class TaskDao extends AbstractDao<Task> {
     public void insert(Task task) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO tasks (name, status) values (?, ?)",
+                    "INSERT INTO tasks (name, status_id) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, task.getName());
-                statement.setString(2, task.getStatus());
+                statement.setObject(2, task.getStatusId());
                 statement.executeUpdate();
 
                 try(ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -32,8 +32,8 @@ public class TaskDao extends AbstractDao<Task> {
     public void update(Task task) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE tasks SET status = ? WHERE id = ?")) {
-                statement.setString(1, task.getStatus());
+                    "UPDATE tasks SET status_id = ? WHERE id = ?")) {
+                statement.setInt(1, task.getStatusId());
                 statement.setInt(2, task.getId());
                 statement.executeUpdate();
             }
@@ -64,7 +64,6 @@ public class TaskDao extends AbstractDao<Task> {
         Task task = new Task();
         task.setId(rs.getInt("id"));
         task.setName(rs.getString("name"));
-        task.setStatus(rs.getString("status"));
         return task;
     }
 }
