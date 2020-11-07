@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Status</title>
+</head>
+<body>
+
+<h1>Current status</h1>
+
+<div id="status"></div>
+
+<div>
+    <a href="index.html">Return to front page</a>
+</div>
+</body>
+<script>
+    fetch("/newStatuses").then(response => response.text()).then(html => {
+        document.getElementById("status").innerHTML = html;
+    });
+</script>
+</html>

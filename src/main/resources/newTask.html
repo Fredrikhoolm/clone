@@ -8,12 +8,7 @@
 <div>
     <form method="post" action="/newTask">
         <p>Task name: <input name="taskName"/></p>
-        <p>Task status:
-            <select name="taskStatus">
-                <option value="Not started">Not started</option>
-                <option value="In progress">In progress</option>
-                <option value="Done">Done</option>
-            </select>
+        <p>Select status: <select name="statusId" id="statusId" ></select></p>
         </p>
         <p><button>Submit</button></p>
     </form>
@@ -22,4 +17,10 @@
     </div>
 </div>
 </body>
+<script>
+
+    fetch("/statusOptions").then(response => response.text()).then(html => {
+        document.getElementById("statusId").innerHTML = html;
+    });
+</script>
 </html>

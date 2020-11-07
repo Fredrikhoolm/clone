@@ -9,13 +9,7 @@
     <form method="post" action="/editTask">
 
         <p>Task name: <select name="taskId" id="taskId" ></select></p>
-        <p>Task status:
-            <select name="taskStatus">
-                <option value="Not started">Not started</option>
-                <option value="In progress">In progress</option>
-                <option value="Done">Done</option>
-            </select>
-        </p>
+        <p>Task status: <select name="taskStatus" id="taskStatus" ></select></p>
         <p><button>Submit</button></p>
     </form>
     <div>
@@ -26,6 +20,9 @@
 <script>
     fetch("/taskOptions").then(response => response.text()).then(html => {
         document.getElementById("taskId").innerHTML = html;
+    });
+    fetch("/newStatuses").then(response => response.text()).then(html => {
+        document.getElementById("taskStatus").innerHTML = html;
     });
 </script>
 </html>

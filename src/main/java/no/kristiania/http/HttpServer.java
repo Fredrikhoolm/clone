@@ -38,12 +38,15 @@ public class HttpServer {
         controllers = Map.of(
                 "/newTask", new ProjectTaskPostController(taskDao),
                 "/newTasks", new ProjectTaskGetController(taskDao),
+                "/newStatus", new ProjectStatusPostController(taskDao),
+                "/newStatuses", new ProjectStatusGetController(taskDao),
                 "/taskOptions", new ProjectTaskOptionsController(taskDao),
+                "/statusOptions", new ProjectStatusOptionsController(taskDao),
                 "/memberOptions", new MemberOptionsController(memberDao),
                 "/updateTask", new UpdateProjectController(memberDao),
-                "/editTask", new UpdateTaskController(taskDao),
-                "/listStatus", new ProjectTaskStatusController(taskDao),
-                "/filterStatus", new ProjectTaskFilterController(taskDao)
+                "/editTask", new UpdateTaskController(taskDao)
+              //  "/listStatus", new ProjectTaskStatusController(taskDao),
+              //  "/filterStatus", new ProjectTaskFilterController(taskDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
