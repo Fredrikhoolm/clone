@@ -30,7 +30,7 @@ public class TaskDao extends AbstractDao<Task> {
         }
     }
 
-    public List<Task> filterByStatus(String status) throws SQLException {
+    public List<Task>  publishStatus(String status) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement("SELECT name, status FROM task WHERE id = ?")) {
                 statement.setString(1, status);

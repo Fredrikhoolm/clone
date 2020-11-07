@@ -35,11 +35,11 @@
         document.getElementById("members").innerHTML = html;
     });
 
-    fetch("/newTasks" ).then(response => response.text()).then(html => {
+    fetch("/newTasks").then(response => response.text()).then(html => {
         document.getElementById("tasks").innerHTML = html;
     });
 
-    fetch("/listStatus").then(response => response.text()).then(html => {
+    fetch("/listStatus"+ location.search).then(response => response.text()).then(html => {
         document.getElementById("taskStatus").innerHTML = html;
     });
 </script>
