@@ -54,13 +54,13 @@ public class TaskDaoTest {
         Task task = exampleTask();
         taskDao.insert(task);
         assertThat(controller.getBody())
-                .contains("<option value=" + task.getId() + ">" + task.getName() + " " + task.getStatus() +  "</option>");
+                .contains("<option value=" + task.getId() + ">" + task.getName() +  "</option>");
     }
 
     public static Task exampleTask() {
         Task task = new Task();
         task.setName(exampleProjectName());
-        task.setStatus(exampleStatus());
+       // task.setStatus(exampleStatus());
         return task;
     }
 

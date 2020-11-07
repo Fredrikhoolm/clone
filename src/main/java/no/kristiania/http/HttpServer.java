@@ -3,6 +3,7 @@ package no.kristiania.http;
 //import databases
 import no.kristiania.Project.Member;
 import no.kristiania.Project.MemberDao;
+import no.kristiania.Project.StatusDao;
 import no.kristiania.Project.TaskDao;
 
 import no.kristiania.controllers.*;
@@ -27,6 +28,7 @@ import java.util.Properties;
 public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
+    private StatusDao statusDao;
     private Map<String, HttpController> controllers;
     private int port;
     private MemberDao memberDao;
@@ -38,10 +40,10 @@ public class HttpServer {
         controllers = Map.of(
                 "/newTask", new ProjectTaskPostController(taskDao),
                 "/newTasks", new ProjectTaskGetController(taskDao),
-                "/newStatus", new ProjectStatusPostController(taskDao),
-                "/newStatuses", new ProjectStatusGetController(taskDao),
+                "/newStatus", new ProjectStatusPostController(statusDao),
+                "/newStatuses", new ProjectStatusGetController(statusDao),
                 "/taskOptions", new ProjectTaskOptionsController(taskDao),
-                "/statusOptions", new ProjectStatusOptionsController(taskDao),
+                "/statusOptions", new ProjectStatusOptionsController(statusDao),
                 "/memberOptions", new MemberOptionsController(memberDao),
                 "/updateTask", new UpdateProjectController(memberDao),
                 "/editTask", new UpdateTaskController(taskDao)
