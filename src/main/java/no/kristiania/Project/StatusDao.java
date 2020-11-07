@@ -10,18 +10,18 @@ public class StatusDao  extends AbstractDao<Status>{
         super(dataSource);
     }
     //TODO: prøve å abstrahere insert og list metodene hvis det går?
-    public void insert(Task task) throws SQLException {
+    public void insert(Status status) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO status (name) values (?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
-                statement.setString(1, task.getName());
+                statement.setString(1, status.getName());
                 statement.executeUpdate();
 
                 try(ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     generatedKeys.next();
-                    task.setId(generatedKeys.getInt("id"));
+                    status.setId(generatedKeys.getInt("id"));
                 }
             }
         }

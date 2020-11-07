@@ -1,5 +1,7 @@
 package no.kristiania.controllers;
 
+import no.kristiania.Project.Status;
+import no.kristiania.Project.StatusDao;
 import no.kristiania.Project.Task;
 import no.kristiania.Project.TaskDao;
 import no.kristiania.http.HttpMessage;
@@ -10,20 +12,20 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class ProjectStatusPostController implements HttpController {
-    private TaskDao taskDao;
+    private StatusDao statusDao;
 
-    public ProjectStatusPostController(TaskDao taskDao){
+    public ProjectStatusPostController(StatusDao statusDao){
 
-        this.taskDao = taskDao;
+        this.statusDao = statusDao;
     }
 
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
 
-        Task tasks = new Task();
-        tasks.setStatus(requestParameter.getParameter("taskStatus"));
-        taskDao.insert(tasks);
+        Status status = new Status();
+        status.setName(requestParameter.getParameter("name"));
+        statusDao.insert(status);
 
         //String bod = "Okay";
         String body = "<a href=\"index.html\">Return to front page</a>";
