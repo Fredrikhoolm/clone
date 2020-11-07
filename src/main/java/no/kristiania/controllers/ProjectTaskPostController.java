@@ -10,12 +10,12 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class ProjectTaskPostController implements HttpController {
-   private TaskDao taskDao;
+    private TaskDao taskDao;
 
-   public ProjectTaskPostController(TaskDao taskDao){
+    public ProjectTaskPostController(TaskDao taskDao){
 
-       this.taskDao = taskDao;
-   }
+        this.taskDao = taskDao;
+    }
 
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {

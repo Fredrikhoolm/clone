@@ -21,7 +21,7 @@
     fetch("/taskOptions").then(response => response.text()).then(html => {
         document.getElementById("taskId").innerHTML = html;
     });
-    fetch("/newStatuses").then(response => response.text()).then(html => {
+    fetch("/statusOptions").then(response => response.text()).then(html => {
         document.getElementById("taskStatus").innerHTML = html;
     });
 </script>

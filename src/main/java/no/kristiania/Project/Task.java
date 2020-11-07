@@ -30,7 +30,7 @@ public class Task {
         return statusId;
     }
 
-    public void setStatusId(Integer taskId) {
+    public void setStatusId(Integer statusId) {
 
         this.statusId = statusId;
     }

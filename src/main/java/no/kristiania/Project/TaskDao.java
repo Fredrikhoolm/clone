@@ -64,6 +64,7 @@ public class TaskDao extends AbstractDao<Task> {
         Task task = new Task();
         task.setId(rs.getInt("id"));
         task.setName(rs.getString("name"));
+        task.setStatusId((Integer) rs.getObject("status_id"));
         return task;
     }
 }
