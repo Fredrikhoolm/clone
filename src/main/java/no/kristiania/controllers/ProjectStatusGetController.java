@@ -14,6 +14,7 @@ public class ProjectStatusGetController implements HttpController{
     private StatusDao statusDao;
 
     public ProjectStatusGetController(StatusDao statusDao) {
+
         this.statusDao = statusDao;
     }
 
@@ -21,8 +22,8 @@ public class ProjectStatusGetController implements HttpController{
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
         for (Status status : statusDao.list()) {
-            String Statu = status.getName();
-            body += "<dl>" + "Status: " + status + "</dl>";
+            String name = status.getName();
+            body += "<dl>" + "Status: " + name + "</dl>";
         }
 
         body += "</ul>";

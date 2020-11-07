@@ -24,7 +24,7 @@ public class ProjectStatusPostController implements HttpController {
         QueryString requestParameter = new QueryString(request.getBody());
 
         Status status = new Status();
-        status.setName(requestParameter.getParameter("name"));
+        status.setName(requestParameter.getParameter("taskStatus"));
         statusDao.insert(status);
 
         //String bod = "Okay";

@@ -28,7 +28,6 @@ import java.util.Properties;
 public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
-    private StatusDao statusDao;
     private Map<String, HttpController> controllers;
     private int port;
     private MemberDao memberDao;
@@ -37,6 +36,7 @@ public class HttpServer {
         this.port = port;
         memberDao = new MemberDao(dataSource);
         TaskDao taskDao = new TaskDao(dataSource);
+        StatusDao statusDao = new StatusDao(dataSource);
         controllers = Map.of(
                 "/newTask", new ProjectTaskPostController(taskDao),
                 "/newTasks", new ProjectTaskGetController(taskDao),
