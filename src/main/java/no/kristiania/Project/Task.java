@@ -3,7 +3,7 @@ package no.kristiania.Project;
 public class Task {
     private Integer id;
     private String name;
-    private String status;
+    private Integer statusId;
 
     public String getName() {
 
@@ -25,14 +25,14 @@ public class Task {
         this.id = id;
     }
 
-    public String getStatus() {
+    public Integer getStatusId() {
 
-        return status;
+        return statusId;
     }
 
-    public void setStatus(String status) {
+    public void setStatusId(Integer statusId) {
 
-        this.status = status;
+        this.statusId = statusId;
     }
 
 }

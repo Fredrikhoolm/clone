@@ -1,9 +1,7 @@
 package no.kristiania.controllers;
 
-import no.kristiania.Project.Member;
 import no.kristiania.Project.Task;
 import no.kristiania.Project.TaskDao;
-import no.kristiania.Project.MemberDao;
 import no.kristiania.http.HttpMessage;
 import no.kristiania.http.QueryString;
 
@@ -21,7 +19,7 @@ public class UpdateTaskController implements HttpController {
     }
 
     @Override
-    public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
+    public void handle(HttpMessage request, Socket clientSocket, String requestTarget, int questionPos) throws IOException, SQLException {
         HttpMessage response = handle(request);
         response.write(clientSocket);
     }
@@ -29,9 +27,7 @@ public class UpdateTaskController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
         Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
-        String status = requestParameter.getParameter("taskStatus");
         Task task = taskDao.retrieve(taskId);
-        task.setStatus(status);
         taskDao.update(task);
 
         HttpMessage redirect = new HttpMessage();

@@ -3,6 +3,7 @@ package no.kristiania.http;
 //import databases
 import no.kristiania.Project.Member;
 import no.kristiania.Project.MemberDao;
+import no.kristiania.Project.StatusDao;
 import no.kristiania.Project.TaskDao;
 
 import no.kristiania.controllers.*;
@@ -35,15 +36,20 @@ public class HttpServer {
         this.port = port;
         memberDao = new MemberDao(dataSource);
         TaskDao taskDao = new TaskDao(dataSource);
+        StatusDao statusDao = new StatusDao(dataSource);
         controllers = Map.of(
                 "/newTask", new ProjectTaskPostController(taskDao),
                 "/newTasks", new ProjectTaskGetController(taskDao),
+                "/newStatus", new ProjectStatusPostController(statusDao),
+                "/newStatuses", new ProjectStatusGetController(statusDao),
                 "/taskOptions", new ProjectTaskOptionsController(taskDao),
+                "/statusOptions", new ProjectStatusOptionsController(statusDao),
                 "/memberOptions", new MemberOptionsController(memberDao),
                 "/updateTask", new UpdateProjectController(memberDao),
                 "/editTask", new UpdateTaskController(taskDao),
-                "/listStatus", new ProjectTaskStatusController(taskDao),
-                "/filterStatus", new ProjectTaskFilterController(taskDao)
+                "/updateStatus", new UpdateTaskStatusController(taskDao)
+               // "/listStatus", new ProjectTaskFilterController(taskDao),
+              //  "/filterStatus", new ProjectTaskFilterController(taskDao)
         );
 
         ServerSocket serverSocket = new ServerSocket(port);
@@ -81,7 +87,7 @@ public class HttpServer {
             if (requestPath.equals("/members")) {
                 handlePostMembers(clientSocket, request, body);
             } else {
-                getController(requestPath).handle(request, clientSocket);
+                getController(requestPath).handle(request, clientSocket, requestTarget, questionPos);
             }
         } else {
             if (requestPath.equals("/echo")) {
@@ -91,7 +97,7 @@ public class HttpServer {
             } else {
                 HttpController controller = controllers.get(requestPath);
                 if (controller != null) {
-                    controller.handle(request, clientSocket);
+                    controller.handle(request, clientSocket, requestTarget, questionPos);
                 } else {
                     handleFileRequest(clientSocket, requestPath);
                 }

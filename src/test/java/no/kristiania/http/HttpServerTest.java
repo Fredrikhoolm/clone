@@ -144,10 +144,19 @@ class HttpServerTest {
     void shouldPostNewProject() throws IOException, SQLException {
         HttpServer server = new HttpServer(10011, dataSource);
        // String requestBody = "taskName= JAVA";
-        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newTask", "POST", "taskName=JAVA&taskStatus=DONE");
+        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newTask", "POST", "taskName=JAVA");
         assertEquals(200, postClient.getStatusCode());
         HttpClient getClient = new HttpClient("localhost", server.getPort(), "/newTasks");
-        assertThat(getClient.getResponseBody()).contains("<li>" + "JAVA" + "</li>" +  "<dl>" + "Status:" + "DONE</dl>");
+        assertThat(getClient.getResponseBody()).contains("<li>" + "JAVA" + "</li>");
+    }
+    @Test
+    void shouldPostNewStatus() throws IOException, SQLException {
+        HttpServer server = new HttpServer(10012, dataSource);
+       // String requestBody = "taskName= JAVA";
+        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/newStatus", "POST", "taskStatus=Done");
+        assertEquals(200, postClient.getStatusCode());
+        HttpClient getClient = new HttpClient("localhost", server.getPort(), "/newStatuses");
+        assertThat(getClient.getResponseBody()).contains("<dl>"+ "Status:" + "Done" + "</dl>");
     }
 
 }

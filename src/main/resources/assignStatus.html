@@ -5,27 +5,26 @@
     <title>Edit Task</title>
 </head>
 <body>
-<div>
-    <form method="post" action="/editTask">
+<h1>Edit Task</h1>
 
-        <p>Task name: <select name="taskId" id="taskId" ></select></p>
-        <p>Task status:
-            <select name="taskStatus">
-                <option value="Not started">Not started</option>
-                <option value="In progress">In progress</option>
-                <option value="Done">Done</option>
-            </select>
-        </p>
+<div>
+    <form method="post" action="/updateStatus">
+        <p>Task: <select name="taskId" id="taskId" ></select></p>
+        <p>Assign Status: <select name="statusId" id="statusId" ></select></p>
         <p><button>Submit</button></p>
     </form>
     <div>
         <a href="index.html">Return to front page</a>
     </div>
 </div>
+
 </body>
 <script>
     fetch("/taskOptions").then(response => response.text()).then(html => {
         document.getElementById("taskId").innerHTML = html;
+    });
+    fetch("/statusOptions").then(response => response.text()).then(html => {
+        document.getElementById("statusId").innerHTML = html;
     });
 </script>
 </html>

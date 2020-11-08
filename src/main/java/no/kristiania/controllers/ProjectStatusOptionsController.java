@@ -1,20 +1,19 @@
 package no.kristiania.controllers;
 
-
-import no.kristiania.Project.TaskDao;
-import no.kristiania.Project.Task;
+import no.kristiania.Project.Status;
+import no.kristiania.Project.StatusDao;
 import no.kristiania.http.HttpMessage;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class ProjectTaskOptionsController implements HttpController{
-    private TaskDao taskDao;
+public class ProjectStatusOptionsController implements HttpController{
+    private StatusDao statusDao;
 
-    public ProjectTaskOptionsController(TaskDao taskDao) {
+    public ProjectStatusOptionsController(StatusDao statusDao) {
 
-        this.taskDao = taskDao;
+        this.statusDao = statusDao;
     }
     @Override
     public void handle(HttpMessage request, Socket clientSocket, String requestTarget, int questionPos) throws IOException, SQLException {
@@ -23,8 +22,8 @@ public class ProjectTaskOptionsController implements HttpController{
     }
     public String getBody() throws SQLException {
         String body = "";
-        for (Task task : taskDao.list()) {
-            body += "<option value=" + task.getId() + ">" + task.getName() +  "</option>";
+        for (Status status : statusDao.list()) {
+            body += "<option value=" + status.getId() + ">" + status.getName() +  "</option>";
         }
         return body;
     }
