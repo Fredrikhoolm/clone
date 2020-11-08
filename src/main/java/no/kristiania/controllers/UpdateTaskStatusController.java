@@ -1,5 +1,6 @@
 package no.kristiania.controllers;
 
+import no.kristiania.Project.Member;
 import no.kristiania.Project.Task;
 import no.kristiania.Project.TaskDao;
 import no.kristiania.http.HttpMessage;
@@ -9,12 +10,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class UpdateTaskController implements HttpController {
+public class UpdateTaskStatusController implements HttpController {
+    private TaskDao taskDao;
 
-    private final TaskDao taskDao;
-
-    public UpdateTaskController(TaskDao taskDao) {
-
+    public UpdateTaskStatusController(TaskDao taskDao) {
         this.taskDao = taskDao;
     }
 
@@ -26,10 +25,12 @@ public class UpdateTaskController implements HttpController {
 
     public HttpMessage handle(HttpMessage request) throws SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
+
         Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
-        String status = requestParameter.getParameter("taskStatus");
+        Integer statusId = Integer.valueOf(requestParameter.getParameter("statusId"));
         Task task = taskDao.retrieve(taskId);
-        //task.setStatus(status);
+        task.setStatusId(statusId);
+
         taskDao.update(task);
 
         HttpMessage redirect = new HttpMessage();
@@ -37,4 +38,5 @@ public class UpdateTaskController implements HttpController {
         redirect.getHeaders().put("Location", "http://localhost:8080/index.html");
         return redirect;
     }
+
 }

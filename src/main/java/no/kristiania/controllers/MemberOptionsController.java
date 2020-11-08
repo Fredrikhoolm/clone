@@ -18,7 +18,7 @@ public class MemberOptionsController implements HttpController {
     }
 
     @Override
-    public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
+    public void handle(HttpMessage request, Socket clientSocket, String requestTarget, int questionPos) throws IOException, SQLException {
         HttpMessage response = new HttpMessage(getBody());
         response.write(clientSocket);
     }

@@ -111,17 +111,11 @@ public class MemberDaoTest {
     public Member exampleMember() {
         Member member = new Member();
         member.setFirstName(exampleMemberName());
-        //member.setTaskId(exampleTaskId());
         member.setLastName("Richard");
         member.setEmail("Chris@gmail.com");
         member.setTaskId(defaultTask.getId());
         return member;
     }
-
-   /*private static Integer exampleTaskId() {
-        Integer[] taskId = {1,2,3 };
-        return taskId[random.nextInt(taskId.length)];
-    }*/
 
     private static String exampleMemberName(){
         String[] options = {"Ole", "Hadron", "Chris", "Gabriel", "Jesus"};

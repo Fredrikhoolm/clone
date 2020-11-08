@@ -19,11 +19,11 @@ public class ProjectStatusGetController implements HttpController{
     }
 
     @Override
-    public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
+    public void handle(HttpMessage request, Socket clientSocket, String requestTarget, int questionPos) throws IOException, SQLException {
         String body = "<ul>";
         for (Status status : statusDao.list()) {
             String name = status.getName();
-            body += "<dl>" + "Status: " + name + "</dl>";
+            body += "<dl>" + "Status:" + name + "</dl>";
         }
 
         body += "</ul>";

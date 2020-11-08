@@ -10,6 +10,11 @@
 
 <div id="tasks"></div>
 
+<h1>Current tasks with status</h1>
+
+<div id="project"></div>
+
+<div>
 <div>
     <a href="index.html">Return to front page</a>
 </div>
@@ -18,5 +23,11 @@
     fetch("/newTasks").then(response => response.text()).then(html => {
         document.getElementById("tasks").innerHTML = html;
     });
+
+
+    //TODO: LISST TASK WITH STATUS TOGETHER
+   /* fetch("/taskWithStatus").then(response => response.text()).then(html => {
+        document.getElementById("project").innerHTML = html;
+    });*/
 </script>
 </html>

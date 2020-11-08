@@ -46,7 +46,8 @@ public class HttpServer {
                 "/statusOptions", new ProjectStatusOptionsController(statusDao),
                 "/memberOptions", new MemberOptionsController(memberDao),
                 "/updateTask", new UpdateProjectController(memberDao),
-                "/editTask", new UpdateTaskController(taskDao)
+                "/editTask", new UpdateTaskController(taskDao),
+              "/updateStatus", new UpdateTaskStatusController(taskDao)
               //  "/listStatus", new ProjectTaskStatusController(taskDao),
               //  "/filterStatus", new ProjectTaskFilterController(taskDao)
         );
@@ -86,7 +87,7 @@ public class HttpServer {
             if (requestPath.equals("/members")) {
                 handlePostMembers(clientSocket, request, body);
             } else {
-                getController(requestPath).handle(request, clientSocket);
+                getController(requestPath).handle(request, clientSocket, requestTarget, questionPos);
             }
         } else {
             if (requestPath.equals("/echo")) {
@@ -96,7 +97,7 @@ public class HttpServer {
             } else {
                 HttpController controller = controllers.get(requestPath);
                 if (controller != null) {
-                    controller.handle(request, clientSocket);
+                    controller.handle(request, clientSocket, requestTarget, questionPos);
                 } else {
                     handleFileRequest(clientSocket, requestPath);
                 }

@@ -1,7 +1,6 @@
 package no.kristiania.controllers;
 
-import no.kristiania.Project.Task;
-import no.kristiania.Project.TaskDao;
+import no.kristiania.Project.*;
 import no.kristiania.http.HttpMessage;
 import no.kristiania.http.QueryString;
 
@@ -17,8 +16,9 @@ public class ProjectTaskPostController implements HttpController {
         this.taskDao = taskDao;
     }
 
+
     @Override
-    public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
+    public void handle(HttpMessage request, Socket clientSocket, String requestTarget, int questionPos) throws IOException, SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
 
         Task tasks = new Task();
@@ -35,4 +35,5 @@ public class ProjectTaskPostController implements HttpController {
         // Write the response back to the client
         clientSocket.getOutputStream().write(response.getBytes());
     }
+
 }
