@@ -24,7 +24,7 @@ public class ProjectTaskGetController implements HttpController {
         Integer statusId = null;
         if (questionPos != -1) {
             statusId = Integer.valueOf(new QueryString(requestTarget.substring(questionPos+1))
-                    .getParameter("statusId"));
+                    .getParameter("taskStatus"));
         }
         List<Task> tasks = statusId == null ? taskDao.list() : taskDao.queryTaskByStatusId(statusId);
 
@@ -36,7 +36,6 @@ public class ProjectTaskGetController implements HttpController {
         }
 
         body += "</ul>";
-
 
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.length() + "\r\n" +

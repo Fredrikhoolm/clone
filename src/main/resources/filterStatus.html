@@ -30,10 +30,10 @@
 </body>
 <script>
 
-    fetch("/listStatus"  + location.search).then(response => response.text()).then(html => {
+    fetch("/statusOptions").then(response => response.text()).then(html => {
         document.getElementById("taskStatus").innerHTML = html;
     });
-    fetch("/filterStatus").then(response => response.text()).then(html => {
+    fetch("/newTasks" + location.search).then(response => response.text()).then(html => {
         document.getElementById("filterStatus").innerHTML = html;
     });
 </script>

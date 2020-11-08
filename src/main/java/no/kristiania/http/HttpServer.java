@@ -47,8 +47,8 @@ public class HttpServer {
                 "/memberOptions", new MemberOptionsController(memberDao),
                 "/updateTask", new UpdateProjectController(memberDao),
                 "/editTask", new UpdateTaskController(taskDao),
-              "/updateStatus", new UpdateTaskStatusController(taskDao)
-              //  "/listStatus", new ProjectTaskStatusController(taskDao),
+                "/updateStatus", new UpdateTaskStatusController(taskDao)
+               // "/listStatus", new ProjectTaskFilterController(taskDao),
               //  "/filterStatus", new ProjectTaskFilterController(taskDao)
         );
 
