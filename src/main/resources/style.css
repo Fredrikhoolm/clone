@@ -1,0 +1,28 @@
+
+body{
+    /*background-color: lime;*/
+    font-family: verdana;
+}
+
+h1{
+    color: white;
+
+}
+
+a{
+    color: red;
+
+}
+
+#center{
+    margin: auto;
+    width: 25%;
+    border: 3px solid gray;
+    padding: 10px;
+    top-padding: 25%;
+}
+
+.list {
+    float: left;
+    width: 400px;
+}

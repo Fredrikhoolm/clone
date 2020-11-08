@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter Status</title>
+</head>
+<body>
+
+<h1>Filter by Task status</h1>
+<div id="filterStatus">
+
+
+</div>
+
+<h1>Tasks:</h1>
+<div id="tasks" class="list">
+
+
+</div>
+<div>
+    <a href="index.html">Return to front page</a>
+</div>
+
+<form>
+    <p>
+        Filter by Task status: <select id="taskStatus" name="taskStatus"></select>
+        <button>Filter</button>
+    </p>
+</form>
+</body>
+<script>
+
+    fetch("/statusOptions").then(response => response.text()).then(html => {
+        document.getElementById("taskStatus").innerHTML = html;
+    });
+    fetch("/newTasks" + location.search).then(response => response.text()).then(html => {
+        document.getElementById("filterStatus").innerHTML = html;
+    });
+</script>
+</html>

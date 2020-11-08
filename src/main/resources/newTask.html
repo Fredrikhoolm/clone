@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Task</title>
+</head>
+<body>
+<div>
+    <form method="post" action="/newTask">
+        <p>Task name: <input name="taskName" id="taskId"/></p>
+        <p>Task status: <select name="taskStatus" id="statusId"></select> </p>
+        <p><button>Submit</button></p>
+    </form>
+    <div>
+        <a href="index.html">Return to front page</a>
+    </div>
+</div>
+</body>
+<script>
+
+    fetch("/statusOptions").then(response => response.text()).then(html => {
+        document.getElementById("statusId").innerHTML = html;
+    });
+</script>
+</html>
