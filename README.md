@@ -49,5 +49,4 @@
 
 -------------------------
 
-Temporary UML:
-![UML][https://github.com/kristiania/pgr203eksamen-hkonn/blob/dev/PGR203Eksamen_UML.png]
+
